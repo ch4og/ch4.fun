@@ -297,7 +297,7 @@ self.upload = async (req, res) => {
   if (URL_REGEX.test(req.body)) {
     throw new ClientError('URL.')
   } else{
-    throw new ClientError(req.body)
+    throw new ClientError('wow ${req.boody} !')
   }
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
