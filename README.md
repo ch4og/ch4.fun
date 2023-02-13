@@ -1,6 +1,6 @@
 # lolisafe, a small safe worth protecting
 
-[![ch4.fun](https://ch4.fun/TErclEP2.png)](https://ch4.fun)
+[![ch4.fun](https://ch4.fun/main.png)](https://ch4.fun)
 
 This fork is for my personal use and **will** have problems if you try using it. Please refer to the [original repo](https://github.com/BobbyWibowo/lolisafe)
 
