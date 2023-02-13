@@ -297,7 +297,7 @@ self.upload = async (req, res) => {
     new URL(req.url);
     throw new ClientError('url')
   } catch (e) {
-    throw new ClientError('nope')
+    throw new ClientError(req)
   }
    
   if (config.privateUploadGroup) {
