@@ -283,6 +283,7 @@ self.parseStripTags = stripTags => {
 
 self.upload = async (req, res) => {
   // Assert Request type (skip for POST /nojs requests)
+  const URL_REGEX = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   let isMultipart = req.locals.nojs
   let isJson
   if (!req.locals.nojs) {
@@ -293,7 +294,11 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  throw new ClientError("Something went wrong", { req });
+  if (URL_REGEX.test(body)) {
+    throw new ClientError('URL.')
+  } else{
+    throw new ClientError('no.')
+  }
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
       throw new ClientError(config.privateUploadCustomResponse || 'Your usergroup is not permitted to upload new files.', { statusCode: 403 })
