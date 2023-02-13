@@ -283,7 +283,6 @@ self.parseStripTags = stripTags => {
 
 self.upload = async (req, res) => {
   // Assert Request type (skip for POST /nojs requests)
-  const URL_REGEX = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   let isMultipart = req.locals.nojs
   let isJson
   let body = req.body
