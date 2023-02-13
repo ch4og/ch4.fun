@@ -2,9 +2,7 @@
 
 [![ch4.fun](https://ch4.fun/TErclEP2.png)](https://ch4.fun)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/WeebDev/lolisafe/master/LICENSE)
-
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+This fork is for my personal use and **will** have problems if you try using it. Please refer to the [original repo](https://github.com/BobbyWibowo/lolisafe)
 
 ## Features
 
