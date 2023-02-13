@@ -1,6 +1,6 @@
 # lolisafe, a small safe worth protecting
 
-[![safe.fiery.me](https://i.fiery.me/upN1Q.png)](https://safe.fiery.me)
+[![ch4.fun](https://ch4.fun/TErclEP2.png)](https://ch4.fun)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/WeebDev/lolisafe/master/LICENSE)
 
