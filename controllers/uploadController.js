@@ -293,12 +293,6 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  try {
-    new URL(req.url);
-    throw new ClientError('url')
-  } catch (e) {
-    throw new ClientError(req)
-  }
    
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
@@ -373,6 +367,7 @@ self.actuallyUpload = async (req, res, data = {}) => {
       originalname: field.file.name || '',
       mimetype: field.mime_type || 'application/octet-stream'
     }
+    throw new ClientError(field.mime_type)
     req.files.push(file)
 
     file.extname = utils.extname(file.originalname)
