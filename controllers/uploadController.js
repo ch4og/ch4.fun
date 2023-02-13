@@ -286,6 +286,7 @@ self.upload = async (req, res) => {
   const URL_REGEX = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   let isMultipart = req.locals.nojs
   let isJson
+  let body = req.body
   if (!req.locals.nojs) {
     // Multipart for regular uploads, JSON for URL uploads
     isMultipart = req.is('multipart/form-data')
@@ -297,7 +298,7 @@ self.upload = async (req, res) => {
   if (URL_REGEX.test(req.body)) {
     throw new ClientError('URL.')
   } else{
-    throw new ClientError(`wow ${req.body} !`)
+    throw new ClientError(`wow ${body} !`)
   }
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
