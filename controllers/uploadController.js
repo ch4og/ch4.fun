@@ -295,10 +295,12 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  if (URL_REGEX.test(req.body)) {
-    throw new ClientError('URL.')
-  } else{
-    throw new ClientError(`wow ${body} !`)
+  const isURL = require('valid-url').isWebUri;
+  const uploadedFile = req.files[0];
+  if (isURL(uploadedFile.url)) {
+    throw new ClientError('url')
+  } else {
+    throw new ClientError('nope')
   }
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
