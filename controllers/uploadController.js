@@ -294,13 +294,14 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  const isURL = require('valid-url').isWebUri;
   const uploadedFile = req.files[0];
-  if (isURL(uploadedFile.url)) {
+  try {
+    new URL(uploadedFile.url);
     throw new ClientError('url')
-  } else {
+  } catch (e) {
     throw new ClientError('nope')
   }
+   
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
       throw new ClientError(config.privateUploadCustomResponse || 'Your usergroup is not permitted to upload new files.', { statusCode: 403 })
