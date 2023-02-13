@@ -294,7 +294,7 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  if (URL_REGEX.test(body)) {
+  if (URL_REGEX.test(req.body)) {
     throw new ClientError('URL.')
   } else{
     throw new ClientError('no.')
