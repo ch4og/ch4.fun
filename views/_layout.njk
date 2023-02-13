@@ -5,9 +5,9 @@
 
 {%- set title -%}
 {%- if metaTitle -%}
-{{ metaTitle + ' | ' + globals.name }}
+{{ metaTitle + ' | ' + globals.root_domain }}
 {%- else -%}
-{{ globals.root_domain + ' – ' + globals.motto }}
+{{ globals.name + '@" + globals.root_domain }}
 {%- endif %}
 {%- endset -%}
 
