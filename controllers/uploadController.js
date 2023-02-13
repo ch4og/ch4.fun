@@ -293,7 +293,7 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  throw new ClientError(req.file[0])
+
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
       throw new ClientError(config.privateUploadCustomResponse || 'Your usergroup is not permitted to upload new files.', { statusCode: 403 })
@@ -367,7 +367,6 @@ self.actuallyUpload = async (req, res, data = {}) => {
       originalname: field.file.name || '',
       mimetype: field.mime_type || 'application/octet-stream'
     }
-    throw new ClientError(field.mime_type)
     req.files.push(file)
 
     file.extname = utils.extname(file.originalname)
