@@ -293,10 +293,10 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-
+      
   if (config.privateUploadGroup) {
     if (!req.locals.user || !perms.is(req.locals.user, config.privateUploadGroup)) {
-      throw new ClientError(config.privateUploadCustomResponse || 'Your usergroup is not permitted to upload new files.', { statusCode: 403 })
+      throw new ClientError("Something went wrong", { req });
     }
   }
 
@@ -313,6 +313,8 @@ self.upload = async (req, res) => {
     return self.actuallyUploadUrls(req, res, { albumid, age })
   }
 }
+
+
 
 self.unfreezeChunksData = async (files = [], increase = false) => {
   for (const file of files) {
