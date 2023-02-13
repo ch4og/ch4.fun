@@ -285,7 +285,6 @@ self.upload = async (req, res) => {
   // Assert Request type (skip for POST /nojs requests)
   let isMultipart = req.locals.nojs
   let isJson
-  let body = req.body
   if (!req.locals.nojs) {
     // Multipart for regular uploads, JSON for URL uploads
     isMultipart = req.is('multipart/form-data')
@@ -294,9 +293,8 @@ self.upload = async (req, res) => {
       throw new ClientError('Request Content-Type must be either multipart/form-data or application/json.')
     }
   }
-  const uploadedFile = req.files[0];
   try {
-    new URL(uploadedFile.url);
+    new URL(req.url);
     throw new ClientError('url')
   } catch (e) {
     throw new ClientError('nope')
