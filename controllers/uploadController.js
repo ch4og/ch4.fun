@@ -314,8 +314,6 @@ self.upload = async (req, res) => {
   }
 }
 
-
-
 self.unfreezeChunksData = async (files = [], increase = false) => {
   for (const file of files) {
     if (!file.chunksData) return
