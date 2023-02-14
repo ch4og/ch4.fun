@@ -57,8 +57,9 @@ docker-compose.config.yml
 # Custom pages directory
 /pages/custom/*
 
-# Dist dev
+# Dists
 /dist-dev
+/dist
 
 # User files
 .DS_Store
