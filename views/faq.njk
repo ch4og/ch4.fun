@@ -19,17 +19,17 @@
 <section class="section">
   <div class="container has-text-left">
     <h1 class="title">
-      ЧаВо
+      FAQ
     </h1>
     <hr>
 
-    <h2 id="general" class='title is-spaced'>General</h2>
+    <h2 id="general" class='title is-spaced'>Основное</h2>
 
     <h3 class="subtitle has-text-white-ter">Что такое {{ globals.root_domain }}?</h3>
     <article class="message">
       <div class="message-body">
-        This is a fork of <a href="https://github.com/WeebDev/lolisafe" target="_blank" rel="noopener">lolisafe</a>.<br>
-        {{ globals.fork_host }} repository of the fork is located <a href="{{ globals.fork_repo }}" target="_blank" rel="noopener">here</a>.
+        Это форк <a href="https://github.com/BobbyWibowo/lolisafe" target="_blank" rel="noopener">lolisafe</a>.<br>
+        {{ globals.fork_host }} этого форка <a href="{{ globals.fork_repo }}" target="_blank" rel="noopener">здесь</a>.
       </div>
     </article>
 
@@ -118,16 +118,16 @@
 
 <section class="section">
   <div class="container has-text-left">
-    <h2 id="technical" class='title is-spaced'>Technical</h2>
+    <h2 id="technical" class='title is-spaced'>Техническая часть</h2>
 
-    <h3 class="subtitle has-text-white-ter">What are the allowed extensions here?</h3>
+    <h3 class="subtitle has-text-white-ter">Какие расширения поддерживаются?</h3>
     <article class="message">
       <div class="message-body">
         {% if extensionsFilter.length -%}
           {%- if extensionsFilterMode === 'whitelist' -%}
           We only support the following extensions:
           {%- else -%}
-          We support any file extensions, except the following:
+          Любые файлы, кроме:
           {%- endif -%}<br>
           {% set comma = joiner(' ') -%}
           {%- for extension in extensionsFilter -%}
@@ -184,29 +184,24 @@
     </article>
     {%- endif %}
 
-    <h3 class="subtitle has-text-white-ter">Are there any Desktop clients?</h3>
+    <h3 class="subtitle has-text-white-ter">Есть ли приложения для этого сайта?</h3>
     <article class="message">
       <div class="message-body">
-        We do have some browser extensions to assist uploads:<br>
-        <a href="https://addons.mozilla.org/en-US/firefox/addon/lolisafe/" target="_blank" rel="noopener">Firefox extension</a>. Maintained by me. Its GitHub repository is located <a href="https://github.com/BobbyWibowo/loli-safe-extension" target="_blank" rel="noopener">here</a>.<br>
-        <a href="https://chrome.google.com/webstore/detail/loli-safe-uploader/enkkmplljfjppcdaancckgilmgoiofnj" target="_blank" rel="noopener">Chrome extension</a>. Maintained by lolisafe's team. Its GitHub repository is located <a href="https://github.com/WeebDev/loli-safe-extension" target="_blank" rel="noopener">here</a>.<br>
-        With the Chrome extension specifically, you will have to manually set the domain in the extension's settings to <code>https://safe.fiery.me</code>.<br>
+        Существут расширения для браузеров:<br>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/lolisafe/" target="_blank" rel="noopener">Расширение для Firefox</a>. Поддерживается BobbyWibowo. Репозиторий расширения <a href="https://github.com/BobbyWibowo/loli-safe-extension" target="_blank" rel="noopener">здесь</a>.<br>
+        <a href="https://chrome.google.com/webstore/detail/loli-safe-uploader/enkkmplljfjppcdaancckgilmgoiofnj" target="_blank" rel="noopener">Расширение для Chrome</a>. Поддерживается командой chibisafe. Репозиторий расширения <a href="https://github.com/WeebDev/loli-safe-extension" target="_blank" rel="noopener">здесь</a>.<br>
+        В настройках расшиирений необходимо установить домен <code>https://ch4.fun</code>.<br>
         <br>
-        If you use Windows desktop, the safe support uploads from <a href="https://github.com/ShareX/ShareX" target="_blank" rel="noopener">ShareX</a>.<br>
-        You can download the config file by clicking on the ShareX icon on the homepage.<br>
-        When logged in, the config file will also be automatically populated with your account's token.<br>
-        This will allow you to manage your ShareX uploads from our Dashboard.<br>
-        <br>
-        If you use Linux desktop, there is a compatible bash uploader which I also maintain.<br>
-        You can learn more about it from <a href="https://github.com/BobbyWibowo/uguush" target="_blank" rel="noopener">its GitHub repository</a>.
+        Для Windows имеется поддержка <a href="https://github.com/ShareX/ShareX" target="_blank" rel="noopener">ShareX</a>.<br>
+        Скачать индивидуальный конфиг можно в профиле.<br>
       </div>
     </article>
 
     {% if config.routes.nojs !== false -%}
-    <h3 class="subtitle has-text-white-ter">Do you have a No-JS uploader form?</h3>
+    <h3 class="subtitle has-text-white-ter">Имеется ли возможность загрузки без JavaScript?</h3>
     <article class="message">
       <div class="message-body">
-        <a href="nojs" target="_blank"><strong>Yes!</strong></a>
+        <strong>Да! </strong><a href="nojs" target="_blank">Загрузчик No-JS</a>
       </div>
     </article>
     {%- endif %}
@@ -261,7 +256,7 @@
 
 <section class="section has-extra-bottom-padding">
   <div class="container has-text-left">
-    <h2 id="privacy" class='title is-spaced'>Privacy</h2>
+    <h2 id="privacy" class='title is-spaced'>Приватность</h2>
 
     {% if not globals.is_for_personal_use -%}
     <h3 class="subtitle has-text-white-ter">What information is kept with uploads?</h3>
@@ -291,14 +286,14 @@
     </article>
     {%- endif %}
 
-    <h3 class="subtitle has-text-white-ter">Does the server have some sort of access logs?</h3>
+    <h3 class="subtitle has-text-white-ter">Сохраняет ли сервер информацию обо мне?</h3>
     <article class="message">
       <div class="message-body">
-        <strong>Yes.</strong><br>
-        The logs contain each visitor's IP address.<br>
-        This is required by our automated system, that checks logs in real time to detect and punish abuse, such as DDoS attempts, scanners, and so on.<br>
-        Logs are rotated daily, and the server will only keep the last 10 logs.<br>
-        So you can be assured that the logs will only be kept for <strong>10 days at most</strong>.
+        <strong>Да.</strong><br>
+        Сохраняются все IP адреса посетителей.<br>
+        Это необходимо для обнаружения DDoS атак, сканеров поисковых систем.<br>
+        Логи хранят лишь последние 10 запросов.<br>
+        При любых обстоятельствах лог будет сохранен <strong>максимально 10 дней</strong>.
       </div>
     </article>
 
