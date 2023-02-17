@@ -1,5 +1,5 @@
 # lolisafe
-## Маленькие сейфы стоит защищать
+### Маленькие сейфы стоит защищать
 [![ch4.fun](https://ch4.fun/main.png)](https://ch4.fun)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ch4og/lolisafe/master/LICENSE)
 
