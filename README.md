@@ -1,8 +1,9 @@
-# lolisafe, a small safe worth protecting
-
+# lolisafe
+### Маленькие сейфы стоит защищать
 [![ch4.fun](https://ch4.fun/main.png)](https://ch4.fun)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ch4og/lolisafe/master/LICENSE)
 
-This fork is for my personal use and **will** have problems if you try using it. Please refer to the [original repo](https://github.com/BobbyWibowo/lolisafe)
+This fork is for my personal use and **could** have problems if you try using it. Please refer to the [original repo](https://github.com/BobbyWibowo/lolisafe)
 
 ## Features
 
