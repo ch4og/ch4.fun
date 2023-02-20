@@ -11,12 +11,12 @@ page.prepareShareX = () => {
   const headers = {}
 
   if (page.token) {
-    headers.token = page.token || '24 * 7'
+    headers.token = page.token || ''
     headers.albumid = page.album || ''
   }
 
   headers.filelength = page.fileLength || ''
-  headers.age = page.uploadAge || ''
+  headers.age = '24 * 7'
   headers.striptags = page.stripTags || ''
 
   const origin = (window.location.host + window.location.pathname).replace(/\/(dashboard)?$/, '')
