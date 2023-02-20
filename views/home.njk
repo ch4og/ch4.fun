@@ -83,21 +83,21 @@
               <li data-id="tab-files" class="is-active">
                 <a>
                   <span class="icon is-small"><i class="icon-docs"></i></span>
-                  <span>Files</span>
+                  <span>Файлы</span>
                 </a>
               </li>
               {% if urlMaxSizeInt -%}
               <li data-id="tab-urls">
                 <a>
                   <span class="icon is-small"><i class="icon-link"></i></span>
-                  <span>URLs</span>
+                  <span>Ссылки</span>
                 </a>
               </li>
               {%- endif %}
               <li data-id="tab-config">
                 <a>
                   <span class="icon is-small"><i class="icon-cog-alt"></i></span>
-                  <span>Config</span>
+                  <span>Настройки</span>
                 </a>
               </li>
             </ul>
@@ -114,7 +114,7 @@
               </div>
               <p class="help">
                 {% if urlMaxSizeInt !== maxSizeInt -%}
-                Maximum file size per URL is <span id="urlMaxSize">{{ urlMaxSizeInt }} MB</span>.
+                Максимальный размер файла на URL: <span id="urlMaxSize">{{ urlMaxSizeInt }} MB</span>.
                 {{- ' ' }}{% endif -%}
 
                 {% if urlExtensionsFilterEnabled -%}
