@@ -1688,7 +1688,7 @@ page.addUploadsToAlbum = (ids, callback) => {
         added -= add.data.failed.length
       }
 
-      const suffix = `загрузки`
+      const suffix = 'загрузки'
       if (!added) return swal('Произошла ошибка!', `Не удалось добавить ${suffix} в альбом.`, 'error')
 
       swal('О, повезло, повезло!', `Успешно ${albumid < 0 ? 'убрано' : 'добавлено'} ${added} ${suffix} ${albumid < 0 ? 'от' : 'в'} альбом.`, 'success', {
