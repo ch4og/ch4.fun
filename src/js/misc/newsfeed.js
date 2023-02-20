@@ -66,10 +66,10 @@ newsfeed.formatNotification = item => {
   element.href = item.link
   element.target = '_blank'
   element.innerHTML = `
-    <button class="delete" title="Dismiss"></button>
+    <button class="delete" title="Отклонить"></button>
     <div class="content">
       <div class="news-title">
-        ${item.title || 'Untitled'}
+        ${item.title || 'Без названия'}
       </div>
       <div class="news-excerpt">
         ${item.description

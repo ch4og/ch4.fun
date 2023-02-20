@@ -136,10 +136,10 @@ page.onError = error => {
   const content = document.createElement('div')
   content.innerHTML = `
     <p><code>${error.toString()}</code></p>
-    <p>Please check your console for more information.</p>
+    <p>Пожалуйста, проверьте консоль для информации.</p>
   `
   return swal({
-    title: 'An error occurred!',
+    title: 'Произошла ошибка!',
     icon: 'error',
     content
   })
@@ -154,7 +154,7 @@ page.onAxiosError = error => {
   const statusText = page.cloudflareErrors[error.response.status] || error.response.statusText
   const description = error.response.data && error.response.data.description
     ? error.response.data.description
-    : 'There was an error with the request.\nPlease check the console for more information.'
+    : 'Произошла ошибка с запросом.\nПожалуйста, проверьте консоль для информации.'
 
   return swal(`${error.response.status} ${statusText}`, description, 'error')
 }
@@ -169,8 +169,8 @@ page.checkClientVersion = apiVersion => {
   const match = self.src.match(/\?_=(\d+)$/)
   if (match && match[1] && match[1] !== apiVersion) {
     return swal({
-      title: 'Update detected!',
-      text: 'Client assets have been updated. Reload to display the latest version?',
+      title: 'Обнаружено обновление!',
+      text: 'Ресурсы клиента обновлены. Перезагрузите, чтобы отобразить последнюю версию',
       icon: 'info',
       buttons: {
         confirm: {
@@ -283,7 +283,7 @@ page.logout = params => {
 }
 
 page.warnSomethingLoading = () => {
-  swal('Please wait!', 'Something else is still loading\u2026', 'warning', {
+  swal('Please wait!', 'Что-то еще загружается\u2026', 'warning', {
     buttons: false,
     timer: 3000
   })
@@ -488,7 +488,7 @@ page.switchPage = (action, element) => {
     case 'page-prev':
       params.pageNum = page.views[page.currentView].pageNum - 1
       if (params.pageNum < 0) {
-        return swal('An error occurred!', 'This is already the first page.', 'error')
+        return swal('Произошла ошибка!', 'Это уже первая страница.', 'error')
       }
       return func(params)
     case 'page-next':
@@ -517,7 +517,7 @@ page.focusJumpToPage = element => {
 
 page.getUploads = (params = {}) => {
   if (params && params.all && !page.permissions.moderator) {
-    return swal('An error occurred!', 'You cannot do this!', 'error')
+    return swal('Произошла ошибка!', 'Вы не можете это сделать!', 'error')
   }
 
   if (page.isSomethingLoading) return page.warnSomethingLoading()
@@ -545,11 +545,11 @@ page.getUploads = (params = {}) => {
 
   axios.get(url, { headers }).then(response => {
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
         page.updateTrigger(params.trigger)
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибкам', response.data.description, 'error')
       }
     }
 
@@ -562,7 +562,7 @@ page.getUploads = (params = {}) => {
         params.pageNum = pages - 1
         return page.getUploads(params)
       } else {
-        return swal('An error occurred!', `There are no more uploads to populate page ${params.pageNum + 1}.`, 'error')
+        return swal('Произошла ошибка!', `Нет больше загрузок для заполнения страницы ${params.pageNum + 1}.`, 'error')
       }
     }
 
@@ -583,17 +583,17 @@ page.getUploads = (params = {}) => {
         <form class="prevent-default">
           <div class="field has-addons">
             <div class="control is-expanded">
-              <input id="filters" class="input is-small" type="text" placeholder="Filter uploads" value="${page.escape(params.filters || '')}">
+              <input id="filters" class="input is-small" type="text" placeholder="Фильтровать загрузки" value="${page.escape(params.filters || '')}">
             </div>
             <div class="control">
-              <button type="button" class="button is-small is-primary is-outlined" title="Help?" data-action="upload-filters-help"${params.all ? ' data-all="true"' : ''}>
+              <button type="button" class="button is-small is-primary is-outlined" title="Помощь" data-action="upload-filters-help"${params.all ? ' data-all="true"' : ''}>
                 <span class="icon">
                   <i class="icon-help-circled"></i>
                 </span>
               </button>
             </div>
             <div class="control">
-              <button type="submit" class="button is-small is-info is-outlined" title="Filter uploads" data-action="filter-uploads">
+              <button type="submit" class="button is-small is-info is-outlined" title="Фильтровать загрузки" data-action="filter-uploads">
                 <span class="icon">
                   <i class="icon-filter"></i>
                 </span>
@@ -613,7 +613,7 @@ page.getUploads = (params = {}) => {
                 <input id="jumpToPage" class="input is-small" type="number" min="1" max="${pages}" value="${params.pageNum + 1}"${pages === 1 ? ' disabled' : ''}>
               </div>
               <div class="control">
-                <button type="submit" class="button is-small is-info is-outlined" title="Jump to page" data-action="jump-to-page">
+                <button type="submit" class="button is-small is-info is-outlined" title="Перейти на страницу" data-action="jump-to-page">
                   <span class="icon">
                     <i class="icon-paper-plane"></i>
                   </span>
@@ -628,43 +628,43 @@ page.getUploads = (params = {}) => {
     const controls = `
       <div class="columns">
         <div class="column exclusive-operations has-text-left">
-          <a class="button is-small is-primary is-outlined" title="Toggle original names" data-action="toggle-original-names">
+          <a class="button is-small is-primary is-outlined" title="Исходные имена" data-action="toggle-original-names">
             <span class="icon">
               <i class="icon-exchange"></i>
             </span>
-            <span>Toggle original names</span>
+            <span>Исходные имена</span>
           </a>
         </div>
         <div class="column has-text-centered">
-          <a class="button is-small is-danger is-outlined" title="List view" data-action="view-list">
+          <a class="button is-small is-danger is-outlined" title="Список" data-action="view-list">
             <span class="icon">
               <i class="icon-th-list"></i>
             </span>
           </a>
-          <a class="button is-small is-danger is-outlined" title="Thumbs view" data-action="view-thumbs">
+          <a class="button is-small is-danger is-outlined" title="Превью" data-action="view-thumbs">
             <span class="icon">
               <i class="icon-th-large"></i>
             </span>
           </a>
         </div>
         <div class="column bulk-operations has-text-right">
-          <a class="button is-small is-info is-outlined" title="Clear selection" data-action="clear-selection">
+          <a class="button is-small is-info is-outlined" title="Очистить выбор" data-action="clear-selection">
             <span class="icon">
               <i class="icon-cancel"></i>
             </span>
           </a>
           ${params.all
             ? ''
-            : `<a class="button is-small is-warning is-outlined" title="Bulk add to album" data-action="add-selected-uploads-to-album">
+            : `<a class="button is-small is-warning is-outlined" title="Массовое добавление в альбом" data-action="add-selected-uploads-to-album">
             <span class="icon">
               <i class="icon-plus"></i>
             </span>
           </a>`}
-          <a class="button is-small is-danger is-outlined" title="Bulk delete" data-action="bulk-delete-uploads">
+          <a class="button is-small is-danger is-outlined" title="Массовое удаление" data-action="bulk-delete-uploads">
             <span class="icon">
               <i class="icon-trash"></i>
             </span>
-            <span>Bulk delete</span>
+            <span>Массовое удаление</span>
           </a>
         </div>
       </div>
@@ -778,31 +778,31 @@ page.getUploads = (params = {}) => {
         }
 
         div.innerHTML += `
-          <input type="checkbox" class="checkbox" title="Select" data-index="${i}" data-action="select"${upload.selected ? ' checked' : ''}>
+          <input type="checkbox" class="checkbox" title="Выбрать" data-index="${i}" data-action="select"${upload.selected ? ' checked' : ''}>
           <div class="controls">
             ${upload.previewable
-              ? `<a class="button is-small is-primary" title="Display preview" data-action="display-preview">
+              ? `<a class="button is-small is-primary" title="Показать превью" data-action="display-preview">
               <span class="icon">
                 <i class="${upload.type !== 'other' ? `icon-${upload.type}` : 'icon-doc-inv'}"></i>
               </span>
             </a>`
               : ''}
-            <a class="button is-small is-info" title="View file info" href="file/${upload.name}" target="_blank">
+            <a class="button is-small is-info" title="Информация о файле" href="file/${upload.name}" target="_blank">
               <span class="icon">
                 <i class="icon-info"></i>
               </span>
             </a>
-            <a class="button is-small is-info clipboard-js" title="Copy link to clipboard" data-clipboard-text="${upload.file}">
+            <a class="button is-small is-info clipboard-js" title="Скопировать ссылку в буфер обмена" data-clipboard-text="${upload.file}">
               <span class="icon">
                 <i class="icon-clipboard"></i>
               </span>
             </a>
-            <a class="button is-small is-warning" title="Add to album" data-action="add-to-album">
+            <a class="button is-small is-warning" title="Добавить в альбом" data-action="add-to-album">
               <span class="icon">
                 <i class="icon-plus"></i>
               </span>
             </a>
-            <a class="button is-small is-danger" title="Delete" data-action="delete-upload">
+            <a class="button is-small is-danger" title="Удалить" data-action="delete-upload">
               <span class="icon">
                 <i class="icon-trash"></i>
               </span>
@@ -830,15 +830,15 @@ page.getUploads = (params = {}) => {
           <table class="table is-narrow is-fullwidth is-hoverable">
             <thead>
               <tr>
-                <th class="controls"><input id="selectAll" class="checkbox" type="checkbox" title="Select all" data-action="select-all"></th>
-                <th title="Key: name" data-action="sort-uploads">File name</th>
-                ${showOriginalNames ? '<th title="Key: original" data-action="sort-uploads">Original name</th>' : ''}
-                ${params.all ? '<th title="Key: userid" data-action="sort-uploads">User</th>' : ''}
-                ${!params.all || filterAllByAlbums ? '<th title="Key: albumid" data-action="sort-uploads">Album</th>' : ''}
-                <th title="Key: size" data-action="sort-uploads" data-default-sort="desc">Size</th>
+                <th class="controls"><input id="selectAll" class="checkbox" type="checkbox" title="Выбрать все" data-action="select-all"></th>
+                <th title="Key: name" data-action="sort-uploads">Имя файла</th>
+                ${showOriginalNames ? '<th title="Key: original" data-action="sort-uploads">Оригинальное имя</th>' : ''}
+                ${params.all ? '<th title="Key: userid" data-action="sort-uploads">Пользователь</th>' : ''}
+                ${!params.all || filterAllByAlbums ? '<th title="Key: albumid" data-action="sort-uploads">Альбом</th>' : ''}
+                <th title="Key: size" data-action="sort-uploads" data-default-sort="desc">Размер</th>
                 ${params.all ? '<th title="Key: ip" data-action="sort-uploads">IP</th>' : ''}
-                <th title="Key: timestamp" data-action="sort-uploads">Upload date</th>
-                ${hasExpiryDateColumn ? '<th title="Key: expirydate" data-action="sort-uploads">Expiry date</th>' : ''}
+                <th title="Key: timestamp" data-action="sort-uploads">Дата загрузки</th>
+                ${hasExpiryDateColumn ? '<th title="Key: expirydate" data-action="sort-uploads">Дата удаления</th>' : ''}
                 <th class="has-text-right">(${response.data.count} total)</th>
               </tr>
             </thead>
@@ -859,7 +859,7 @@ page.getUploads = (params = {}) => {
         const tr = document.createElement('tr')
         tr.dataset.id = upload.id
         tr.innerHTML = `
-          <td class="controls"><input type="checkbox" class="checkbox" title="Select" data-index="${i}" data-action="select"${upload.selected ? ' checked' : ''}></td>
+          <td class="controls"><input type="checkbox" class="checkbox" title="Выбрать" data-index="${i}" data-action="select"${upload.selected ? ' checked' : ''}></td>
           <th class="name"><a href="${upload.file}" target="_blank" title="${upload.file}">${upload.name}</a></th>
           ${showOriginalNames ? `<th class="originalname" title="${upload.original}">${upload.original}</th>` : ''}
           ${params.all ? `<th class="appendix">${upload.prettyUser}</th>` : ''}
@@ -869,29 +869,29 @@ page.getUploads = (params = {}) => {
           <td class="prettydate" data-timestamp="${upload.timestamp}">${upload.prettyDate}</td>
           ${hasExpiryDateColumn ? `<td class="prettyexpirydate"${upload.expirydate ? ` data-timestamp="${upload.expirydate}"` : ''}>${upload.prettyExpiryDate || '-'}</td>` : ''}
           <td class="controls has-text-right">
-            <a class="button is-small is-primary is-outlined" title="${upload.previewable ? 'Display preview' : 'File can\'t be previewed'}" data-action="display-preview"${upload.previewable ? '' : ' disabled'}>
+            <a class="button is-small is-primary is-outlined" title="${upload.previewable ? 'Показать превью.' : 'Файл не может быть предварительно просмотрен'}" data-action="display-preview"${upload.previewable ? '' : ' disabled'}>
               <span class="icon">
                 <i class="${upload.type !== 'other' ? `icon-${upload.type}` : 'icon-doc-inv'}"></i>
               </span>
             </a>
-            <a class="button is-small is-info is-outlined" title="View file info" href="file/${upload.name}" target="_blank">
+            <a class="button is-small is-info is-outlined" title="Информация о файле" href="file/${upload.name}" target="_blank">
               <span class="icon">
                 <i class="icon-info"></i>
               </span>
             </a>
-            <a class="button is-small is-info is-outlined clipboard-js" title="Copy link to clipboard" data-clipboard-text="${upload.file}">
+            <a class="button is-small is-info is-outlined clipboard-js" title="Скопировать ссылку в буфер обмена" data-clipboard-text="${upload.file}">
               <span class="icon">
                 <i class="icon-clipboard"></i>
               </span>
             </a>
             ${params.all
               ? ''
-              : `<a class="button is-small is-warning is-outlined" title="Add to album" data-action="add-to-album">
+              : `<a class="button is-small is-warning is-outlined" title="Добавить в альбом" data-action="add-to-album">
               <span class="icon">
                 <i class="icon-plus"></i>
               </span>
             </a>`}
-            <a class="button is-small is-danger is-outlined" title="Delete" data-action="delete-upload">
+            <a class="button is-small is-danger is-outlined" title="Удалить" data-action="delete-upload">
               <span class="icon">
                 <i class="icon-trash"></i>
               </span>
@@ -907,7 +907,7 @@ page.getUploads = (params = {}) => {
     const selectAll = document.querySelector('#selectAll')
     if (files.length && selectAll && !unselected) {
       selectAll.checked = true
-      selectAll.title = 'Unselect all'
+      selectAll.title = 'Снять все'
     }
 
     page.fadeIn(page.dom)
@@ -998,7 +998,7 @@ page.displayPreview = id => {
             <span class="icon">
               <i class="icon-${file.type}"></i>
             </span>
-            <span>${file.type === 'picture' ? 'Load original' : 'Play in embedded player'}</span>
+            <span>${file.type === 'picture' ? 'Загрузить оригинал' : 'Включить во встроенном плеере'}</span>
           </a>
         </div>
       </div>
@@ -1024,7 +1024,7 @@ page.displayPreview = id => {
             <span class="icon">
               <i class="icon-block"></i>
             </span>
-            <span>Unable to load original</span>
+            <span>Не удалось загрузить оригинал</span>
           `
         }
       })
@@ -1066,7 +1066,7 @@ page.selectAll = element => {
     delete localStorage[lsKeys.selected[page.currentView]]
   }
 
-  element.title = element.checked ? 'Unselect all' : 'Select all'
+  element.title = element.checked ? 'Снять все' : 'Выбрать все'
 }
 
 page.selectInBetween = (element, lastElement) => {
@@ -1121,12 +1121,12 @@ page.clearSelection = () => {
   const selected = page.selected[page.currentView]
   const type = page.getByView(page.currentView, 'type')
   const count = selected.length
-  if (!count) return swal('An error occurred!', `You have not selected any ${type}.`, 'error')
+  if (!count) return swal('Произошла ошибка!', `Вы не выбрали ни одного ${type}.`, 'error')
 
   const suffix = count === 1 ? type.substring(0, type.length - 1) : type
   return swal({
-    title: 'Are you sure?',
-    text: `You are going to unselect ${count} ${suffix}.`,
+    title: 'Вы уверены?',
+    text: `Вы собираетесь отменить выбор ${count} ${suffix}.`,
     buttons: true
   }).then(proceed => {
     if (!proceed) return
@@ -1144,7 +1144,7 @@ page.clearSelection = () => {
     const selectAll = document.querySelector('#selectAll')
     if (selectAll) selectAll.checked = false
 
-    return swal('Cleared selection!', `Unselected ${count} ${suffix}.`, 'success')
+    return swal('Выбор очищен!', `Снято ${count} ${suffix}.`, 'success')
   })
 }
 
@@ -1439,7 +1439,7 @@ page.deleteUpload = id => {
 page.bulkDeleteUploads = () => {
   const count = page.selected[page.currentView].length
   if (!count) {
-    return swal('An error occurred!', 'You have not selected any uploads.', 'error')
+    return swal('Произошла ошибка!', 'Вы не выбрали загрузки.', 'error')
   }
 
   page.postBulkDeleteUploads({
@@ -1474,17 +1474,17 @@ page.bulkDeleteUploads = () => {
 page.deleteUploadsByNames = (params = {}) => {
   let appendix = ''
   if (page.permissions.moderator) {
-    appendix = '<br><b>Hint:</b> You can use this feature to delete uploads by other users.'
+    appendix = '<br>Вы можете использовать эту функцию для удаления загрузок других пользователей.'
   }
 
   page.dom.innerHTML = `
     <form class="prevent-default">
       <div class="field">
-        <label class="label">Upload names:</label>
+        <label class="label">Имена загрузок:</label>
         <div class="control">
           <textarea id="bulkDeleteNames" class="textarea"></textarea>
         </div>
-        <p class="help">Separate each entry with a new line.${appendix}</p>
+        <p class="help">Разделяйте каждую запись новой строкой.${appendix}</p>
       </div>
       <div class="field">
         <div class="control">
@@ -1492,7 +1492,7 @@ page.deleteUploadsByNames = (params = {}) => {
             <span class="icon">
               <i class="icon-trash"></i>
             </span>
-            <span>Bulk delete</span>
+            <span>Массовое удаление</span>
           </button>
         </div>
       </div>
@@ -1528,7 +1528,7 @@ page.deleteUploadsByNames = (params = {}) => {
     textArea.value = names.join('\n')
 
     if (!names.length) {
-      return swal('An error occurred!', 'You have not entered any upload names.', 'error')
+      return swal('Произошла ошибка!', 'Вы не ввели ни одного имени загрузки.', 'error')
     }
 
     page.postBulkDeleteUploads({
@@ -1545,28 +1545,28 @@ page.deleteUploadsByNames = (params = {}) => {
 page.postBulkDeleteUploads = (params = {}) => {
   const count = params.values.length
 
-  const objective = `${params.values.length} upload${count === 1 ? '' : 's'}`
+  const objective = `${params.values.length} загрузки}`
   const boldObjective = objective.replace(/^(\d*)(.*)/, '<b>$1</b>$2')
-  let text = `<p>You won't be able to recover ${boldObjective}!</p>`
+  let text = `<p>Вы не сможете восстановить ${boldObjective}!</p>`
 
   if (params.all) {
-    const obj1 = count === 1 ? 'an upload' : 'some uploads'
-    const obj2 = count === 1 ? 'another user' : 'other users'
-    text += `\n<p><b>Warning:</b> You may be nuking ${obj1} by ${obj2}!</p>`
+    const obj1 = count === 1 ? 'загрузку' : 'загрузки'
+    const obj2 = count === 1 ? 'другого пользователя' : 'других пользователей'
+    text += `\n<p><b>Предупреждение:</b> Вы можете сжечь ${obj1} от ${obj2}!</p>`
   }
 
   const content = document.createElement('div')
   content.innerHTML = text
 
   swal({
-    title: 'Are you sure?',
+    title: 'Вы уверены?',
     content,
     icon: 'warning',
     dangerMode: true,
     buttons: {
       cancel: true,
       confirm: {
-        text: `Yes, nuke ${params.values.length === 1 ? 'it' : 'them'}!`,
+        text: `Да, сожги ${params.values.length === 1 ? 'это' : 'их'}!`,
         closeModal: false
       }
     }
@@ -1580,20 +1580,20 @@ page.postBulkDeleteUploads = (params = {}) => {
       if (!response) return
 
       if (response.data.success === false) {
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
       const failed = Array.isArray(response.data.failed) ? response.data.failed : []
       if (failed.length === params.values.length) {
-        swal('An error occurred!', `Unable to delete any of the ${objective}.`, 'error')
+        swal('Произошла ошибка!', `Невозможно удалить ни один из ${objective}.`, 'error')
       } else if (failed.length && failed.length < params.values.length) {
-        swal('Warning!', `From ${objective}, unable to delete ${failed.length} of them.`, 'warning')
+        swal('Предупреждение!', `${failed.length} файлов от ${objective} невозможно удалить.`, 'warning')
       } else {
-        swal('Deleted!', `${objective} ${count === 1 ? 'has' : 'have'} been deleted.`, 'success', {
+        swal('Удалено!', `${objective} ${count === 1 ? 'были' : ''} удалены.`, 'success', {
           buttons: false,
           timer: 1500
         })
@@ -1608,7 +1608,7 @@ page.addSelectedUploadsToAlbum = () => {
   if (page.currentView !== 'uploads') return
 
   const count = page.selected[page.currentView].length
-  if (!count) return swal('An error occurred!', 'You have not selected any uploads.', 'error')
+  if (!count) return swal('Произошла ошибка!', 'Вы не выбрали загрузки.', 'error')
 
   page.addUploadsToAlbum(page.selected[page.currentView], failed => {
     if (!failed) return
@@ -1637,15 +1637,15 @@ page.addUploadsToAlbum = (ids, callback) => {
   const content = document.createElement('div')
   content.innerHTML = `
     <div class="field has-text-centered">
-      <p>You are about to add <b>${count}</b> upload${count === 1 ? '' : 's'} to an album.</p>
-      <p><b>If an upload is already in an album, it will be moved.</b></p>
+      <p>Вы собираетесь добавить загрузить <b>${count}</b> файлов в альбом.</p>
+      <p><b>Если загрузка с таким названием уже есть в альбоме, она будет заменена.</b></p>
     </div>
     <div class="field">
       <div class="control">
         <div class="select is-fullwidth">
           <select id="swalAlbum" disabled>
-            <option value="-1">Remove from album</option>
-            <option value="" selected disabled>Fetching albums list\u2026</option>
+            <option value="-1">Удалить из альбома</option>
+            <option value="" selected disabled>Получение списка альбомов\u2026</option>
           </select>
         </div>
       </div>
@@ -1666,7 +1666,7 @@ page.addUploadsToAlbum = (ids, callback) => {
     if (!choose) return
 
     const albumid = parseInt(document.querySelector('#swalAlbum').value)
-    if (isNaN(albumid)) return swal('An error occurred!', 'You did not choose an album.', 'error')
+    if (isNaN(albumid)) return swal('Произошла ошибка!', 'Вы не выбрали альбом.', 'error')
 
     axios.post('api/albums/addfiles', {
       ids,
@@ -1675,10 +1675,10 @@ page.addUploadsToAlbum = (ids, callback) => {
       if (!add) return
 
       if (add.data.success === false) {
-        if (add.data.description === 'No token provided') {
+        if (add.data.description === 'Токен не предоставлен') {
           page.verifyToken(page.token)
         } else {
-          swal('An error occurred!', add.data.description, 'error')
+          swal('Произошла ошибка!', add.data.description, 'error')
         }
         return
       }
@@ -1688,10 +1688,10 @@ page.addUploadsToAlbum = (ids, callback) => {
         added -= add.data.failed.length
       }
 
-      const suffix = `upload${ids.length === 1 ? '' : 's'}`
-      if (!added) return swal('An error occurred!', `Could not add the ${suffix} to the album.`, 'error')
+      const suffix = `загрузки`
+      if (!added) return swal('Произошла ошибка!', `Не удалось добавить ${suffix} в альбом.`, 'error')
 
-      swal('Woohoo!', `Successfully ${albumid < 0 ? 'removed' : 'added'} ${added} ${suffix} ${albumid < 0 ? 'from' : 'to'} the album.`, 'success', {
+      swal('О, повезло, повезло!', `Успешно ${albumid < 0 ? 'убрано' : 'добавлено'} ${added} ${suffix} ${albumid < 0 ? 'от' : 'в'} альбом.`, 'success', {
         buttons: false,
         timer: 1500
       })
@@ -1702,10 +1702,10 @@ page.addUploadsToAlbum = (ids, callback) => {
   // Get albums list then update content of swal
   axios.get('api/albums', { headers: { simple: '1' } }).then(list => {
     if (list.data.success === false) {
-      if (list.data.description === 'No token provided') {
+      if (list.data.description === 'Токен не предоставлен') {
         page.verifyToken(page.token)
       } else {
-        swal('An error occurred!', list.data.description, 'error')
+        swal('Произошла ошибка!', list.data.description, 'error')
       }
       return
     }
@@ -1720,14 +1720,14 @@ page.addUploadsToAlbum = (ids, callback) => {
       })
       .join('\n')
 
-    select.getElementsByTagName('option')[1].innerHTML = 'Choose an album'
+    select.getElementsByTagName('option')[1].innerHTML = 'Выберите альбом'
     select.removeAttribute('disabled')
   }).catch(page.onAxiosError)
 }
 
 page.getAlbums = (params = {}) => {
   if (params && params.all && !page.permissions.moderator) {
-    return swal('An error occurred!', 'You cannot do this!', 'error')
+    return swal('Произошла ошибка!', 'Вы не можете это сделать!', 'error')
   }
 
   if (page.isSomethingLoading) return page.warnSomethingLoading()
@@ -1744,11 +1744,11 @@ page.getAlbums = (params = {}) => {
     if (!response) return
 
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
         page.updateTrigger(params.trigger)
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
@@ -1761,7 +1761,7 @@ page.getAlbums = (params = {}) => {
         params.pageNum = pages - 1
         return page.getAlbums(params)
       } else {
-        return swal('An error occurred!', `There are no more albums to populate page ${params.pageNum + 1}.`, 'error')
+        return swal('Произошла ошибка!', `Больше нет альбомов для заполнения страницы ${params.pageNum + 1}.`, 'error')
       }
     }
 
@@ -1781,17 +1781,17 @@ page.getAlbums = (params = {}) => {
         <form class="prevent-default">
           <div class="field has-addons">
             <div class="control is-expanded">
-              <input id="filters" class="input is-small" type="text" placeholder="Filter albums (WIP)" value="${page.escape(params.filters || '')}" disabled>
+              <input id="filters" class="input is-small" type="text" placeholder="Фильтры альбомов (WIP)" value="${page.escape(params.filters || '')}" disabled>
             </div>
             <div class="control">
-              <button type="button" class="button is-small is-primary is-outlined" title="Help? (WIP)" data-action="album-filters-help" disabled>
+              <button type="button" class="button is-small is-primary is-outlined" title="Помощь (WIP)" data-action="album-filters-help" disabled>
                 <span class="icon">
                   <i class="icon-help-circled"></i>
                 </span>
               </button>
             </div>
             <div class="control">
-              <button type="submit" class="button is-small is-info is-outlined" title="Filter albums (WIP)" data-action="filter-albums" disabled>
+              <button type="submit" class="button is-small is-info is-outlined" title="Фильтры альбомов (WIP)" data-action="filter-albums" disabled>
                 <span class="icon">
                   <i class="icon-filter"></i>
                 </span>
@@ -1811,7 +1811,7 @@ page.getAlbums = (params = {}) => {
                 <input id="jumpToPage" class="input is-small" type="number" min="1" max="${pages}" value="${params.pageNum + 1}"${pages === 1 ? ' disabled' : ''}>
               </div>
               <div class="control">
-                <button type="submit" class="button is-small is-info is-outlined" title="Jump to page" data-action="jump-to-page">
+                <button type="submit" class="button is-small is-info is-outlined" title="Перейти на страницу" data-action="jump-to-page">
                   <span class="icon">
                     <i class="icon-paper-plane"></i>
                   </span>
@@ -1827,23 +1827,23 @@ page.getAlbums = (params = {}) => {
       <div class="columns">
         <div class="column is-hidden-mobile"></div>
         <div class="column bulk-operations has-text-right">
-          <a class="button is-small is-info is-outlined" title="Clear selection" data-action="clear-selection">
+          <a class="button is-small is-info is-outlined" title="Очистить выбор" data-action="clear-selection">
             <span class="icon">
               <i class="icon-cancel"></i>
             </span>
           </a>
-          <a class="button is-small is-dangerish is-outlined" title="Bulk disable (WIP)" data-action="bulk-disable-albums" disabled>
+          <a class="button is-small is-dangerish is-outlined" title="Массовое отключение (WIP)" data-action="bulk-disable-albums" disabled>
             <span class="icon">
               <i class="icon-cancel"></i>
             </span>
-            ${!params.all ? '<span>Bulk disable</span>' : ''}
+            ${!params.all ? '<span>Массовое отключение</span>' : ''}
           </a>
           ${params.all
-            ? `<a class="button is-small is-danger is-outlined" title="Bulk delete (WIP)" data-action="bulk-delete-albums" disabled>
+            ? `<a class="button is-small is-danger is-outlined" title="Массовое удаление (WIP)" data-action="bulk-delete-albums" disabled>
                 <span class="icon">
                   <i class="icon-trash"></i>
                 </span>
-                <span>Bulk delete</span>
+                <span>Массовое удаление</span>
               </a>`
             : ''}
         </div>
@@ -1869,15 +1869,15 @@ page.getAlbums = (params = {}) => {
       <form class="prevent-default">
         <div class="field">
           <div class="control">
-            <input id="albumName" class="input" type="text" placeholder="Name" maxlength="${page.albumTitleMaxLength}">
+            <input id="albumName" class="input" type="text" placeholder="Имя" maxlength="${page.albumTitleMaxLength}">
           </div>
-          <p class="help">Max length is ${page.albumTitleMaxLength} characters.</p>
+          <p class="help">Максимальная длина - ${page.albumTitleMaxLength} символов.</p>
         </div>
         <div class="field">
           <div class="control">
-            <textarea id="albumDescription" class="textarea" placeholder="Description" rows="1" maxlength="${page.albumDescMaxLength}"></textarea>
+            <textarea id="albumDescription" class="textarea" placeholder="Описание" rows="1" maxlength="${page.albumDescMaxLength}"></textarea>
           </div>
-          <p class="help">Max length is ${page.albumDescMaxLength} characters.</p>
+          <p class="help">Максимальная длина - ${page.albumDescMaxLength} символов.</p>
         </div>
         <div class="field">
           <div class="control">
@@ -1885,7 +1885,7 @@ page.getAlbums = (params = {}) => {
               <span class="icon">
                 <i class="icon-paper-plane"></i>
               </span>
-              <span>Create</span>
+              <span>Создать</span>
             </button>
           </div>
         </div>
@@ -1904,15 +1904,15 @@ page.getAlbums = (params = {}) => {
             <tr>
               <th><input id="selectAll" class="checkbox" type="checkbox" title="Select all" data-action="select-all"></th>
               <th>ID</th>
-              <th>Name</th>
-              ${params.all ? '<th>User</th>' : ''}
-              <th>Uploads</th>
-              <th>Size</th>
-              <th>Created at</th>
-              <th>ZIP size</th>
-              <th>ZIP generated at</th>
-              <th>Public link</th>
-              <th class="has-text-right">(${response.data.count} total)</th>
+              <th>Имя</th>
+              ${params.all ? '<th>Пользователь</th>' : ''}
+              <th>Загрузки</th>
+              <th>Размер</th>
+              <th>Создан в</th>
+              <th>ZIP размер</th>
+              <th>ZIP создан в</th>
+              <th>Публичная ссылка</th>
+              <th class="has-text-right">(${response.data.count} суммарно)</th>
             </tr>
           </thead>
           <tbody id="table">
@@ -1960,7 +1960,7 @@ page.getAlbums = (params = {}) => {
       const tr = document.createElement('tr')
       tr.dataset.id = album.id
       tr.innerHTML = `
-        <td class="controls"><input type="checkbox" class="checkbox" title="Select" data-index="${i}" data-action="select"${selected ? ' checked' : ''}></td>
+        <td class="controls"><input type="checkbox" class="checkbox" title="Выбрать" data-index="${i}" data-action="select"${selected ? ' checked' : ''}></td>
         <th>${album.id}</th>
         <th${enabled ? '' : ' class="has-text-grey"'}>${album.name}</td>
         ${params.all ? `<th>${album.userid ? (users[album.userid] || '') : ''}</th>` : ''}
@@ -1968,36 +1968,36 @@ page.getAlbums = (params = {}) => {
         <td data-bytes="${album.size}">${page.getPrettyBytes(album.size)}</td>
         <td data-timestamp="${album.timestamp}">${album.prettyDate}</td>
         <td${album.hasZip ? ` data-bytes="${album.zipSize}"` : ''}>${album.hasZip ? page.getPrettyBytes(album.zipSize) : '-'}</td>
-        <td${album.hasZip ? ` data-timestamp="${album.zipGeneratedAt}"` : ''}${album.isZipExpired ? ' class="has-text-warning" title="This album has been modified since the last time its ZIP was generated."' : ''}>${album.hasZip ? album.prettyZipDate : '-'}</td$>
+        <td${album.hasZip ? ` data-timestamp="${album.zipGeneratedAt}"` : ''}${album.isZipExpired ? ' class="has-text-warning" title="Этот альбом был изменен с момента последнего создания ZIP-архива."' : ''}>${album.hasZip ? album.prettyZipDate : '-'}</td$>
         <td><a ${enabled && album.public ? '' : 'class="is-linethrough" '}href="${albumUrl}" target="_blank">${albumUrlText}</a></td>
         <td class="has-text-right" data-id="${album.id}">
-          <a class="button is-small is-primary is-outlined" title="Edit album" data-action="edit-album">
+          <a class="button is-small is-primary is-outlined" title="Редактировать альбом" data-action="edit-album">
             <span class="icon is-small">
               <i class="icon-pencil"></i>
             </span>
           </a>
-          <a class="button is-small is-info is-outlined" title="${album.uploads ? 'View uploads' : 'Album doesn\'t have uploads'}" data-action="view-album-uploads" ${album.uploads ? '' : 'disabled'}>
+          <a class="button is-small is-info is-outlined" title="${album.uploads ? 'Посмотреть загрузки' : 'В альбоме нет загрузок'}" data-action="view-album-uploads" ${album.uploads ? '' : 'disabled'}>
             <span class="icon">
               <i class="icon-docs"></i>
             </span>
           </a>
-          <a class="button is-small is-info is-outlined clipboard-js" title="Copy link to clipboard" ${album.public ? `data-clipboard-text="${albumUrl}"` : 'disabled'}>
+          <a class="button is-small is-info is-outlined clipboard-js" title="Скопировать ссылку в буфер обмена" ${album.public ? `data-clipboard-text="${albumUrl}"` : 'disabled'}>
             <span class="icon is-small">
               <i class="icon-clipboard"></i>
             </span>
           </a>
-          <a class="button is-small is-warning is-outlined" title="Download album" ${enabled && album.download ? `href="api/album/zip/${album.identifier}?v=${album.editedAt}"` : 'disabled'}>
+          <a class="button is-small is-warning is-outlined" title="Скачать альбом" ${enabled && album.download ? `href="api/album/zip/${album.identifier}?v=${album.editedAt}"` : 'disabled'}>
             <span class="icon is-small">
               <i class="icon-download"></i>
             </span>
           </a>
-          <a class="button is-small is-dangerish is-outlined" title="Disable album" data-action="disable-album"${enabled ? '' : ' disabled'}>
+          <a class="button is-small is-dangerish is-outlined" title="Отключить альбом" data-action="disable-album"${enabled ? '' : ' disabled'}>
             <span class="icon is-small">
               <i class="icon-cancel"></i>
             </span>
           </a>
           ${params.all
-            ? `<a class="button is-small is-danger is-outlined" title="Delete album" data-action="delete-album">
+            ? `<a class="button is-small is-danger is-outlined" title="Удалить альбом" data-action="delete-album">
               <span class="icon is-small">
                 <i class="icon-trash"></i>
               </span>
@@ -2013,7 +2013,7 @@ page.getAlbums = (params = {}) => {
     const selectAll = document.querySelector('#selectAll')
     if (albums.length && selectAll && !unselected) {
       selectAll.checked = true
-      selectAll.title = 'Unselect all'
+      selectAll.title = 'Снять все'
     }
 
     page.fadeIn(page.dom)
@@ -2048,22 +2048,22 @@ page.editAlbum = id => {
   div.innerHTML = `
     <div class="field">
       <div class="controls">
-        <input id="swalName" class="input" type="text" placeholder="Name" maxlength="${page.albumTitleMaxLength}" value="${(album.name || '').substring(0, page.albumTitleMaxLength)}">
+        <input id="swalName" class="input" type="text" placeholder="Имя" maxlength="${page.albumTitleMaxLength}" value="${(album.name || '').substring(0, page.albumTitleMaxLength)}">
       </div>
-      <p class="help">Max length is ${page.albumTitleMaxLength} characters.</p>
+      <p class="help">Максимальная длина - ${page.albumTitleMaxLength} символов.</p>
     </div>
     <div class="field">
       <div class="control">
-        <textarea id="swalDescription" class="textarea" placeholder="Description" rows="2" maxlength="${page.albumDescMaxLength}">${(album.description || '').substring(0, page.albumDescMaxLength)}</textarea>
+        <textarea id="swalDescription" class="textarea" placeholder="Описание" rows="2" maxlength="${page.albumDescMaxLength}">${(album.description || '').substring(0, page.albumDescMaxLength)}</textarea>
       </div>
-      <p class="help"><b>Markdown supported.</b> Max length is ${page.albumDescMaxLength} characters.</p>
+      <p class="help"><b>Поддерживается Markdown.</b>Максимальная длина - ${page.albumDescMaxLength} символов.</p>
     </div>
     ${album.descriptionHtml
       ? `<div class="field">
           <div class="content swal-display-description-preview">
             ${album.descriptionHtml}
           </div>
-          <p class="help">Save changes then re-open this Edit prompt to refresh this preview.</p>
+          <p class="help">Сохраните и повторно откройте это окно, чтобы обновить превью.</p>
         </div>`
       : ''}
     ${page.currentView === 'albumsAll' && page.permissions.moderator
@@ -2071,7 +2071,7 @@ page.editAlbum = id => {
           <div class="control">
             <label class="checkbox">
               <input id="swalEnabled" type="checkbox" ${album.enabled ? 'checked' : ''}>
-              Enabled
+              Включено
             </label>
           </div>
         </div>`
@@ -2080,7 +2080,7 @@ page.editAlbum = id => {
       <div class="control">
         <label class="checkbox">
           <input id="swalDownload" type="checkbox" ${album.download ? 'checked' : ''}>
-          Enable download
+          Включить загрузку
         </label>
       </div>
     </div>
@@ -2088,7 +2088,7 @@ page.editAlbum = id => {
       <div class="control">
         <label class="checkbox">
           <input id="swalPublic" type="checkbox" ${album.public ? 'checked' : ''}>
-          Enable public link
+          Включить публичную ссылку
         </label>
       </div>
     </div>
@@ -2096,12 +2096,12 @@ page.editAlbum = id => {
       <div class="control">
         <label class="checkbox">
           <input id="swalRequestLink" type="checkbox">
-          Request new public link
+          Запросить новую публичную ссылку
         </label>
       </div>
     </div>
     <div class="field">
-      <p>Current public link: <a href="${albumUrl}" target="_blank" class="is-underline">${albumUrlText}</a></p>
+      <p>Текущая публичная ссылка: <a href="${albumUrl}" target="_blank" class="is-underline">${albumUrlText}</a></p>
     </div>
   `
 
@@ -2135,19 +2135,19 @@ page.editAlbum = id => {
       if (!response) return
 
       if (response.data.success === false) {
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
       if (response.data.identifier) {
-        swal('Success!', `The album's new identifier is: ${response.data.identifier}.`, 'success')
+        swal('Успех!', `Идентификатор альбома: ${response.data.identifier}.`, 'success')
       } else if (response.data.name !== album.name) {
-        swal('Success!', `The album was renamed to: ${response.data.name}.`, 'success')
+        swal('Успех!', `Альбом был переименован в: ${response.data.name}.`, 'success')
       } else {
-        swal('Success!', 'The album was edited.', 'success', {
+        swal('Успех!', 'Альбом был отредактирован.', 'success', {
           buttons: false,
           timer: 1500
         })
@@ -2165,18 +2165,18 @@ page.editAlbum = id => {
 
 page.disableAlbum = id => {
   swal({
-    title: 'Are you sure?',
-    text: 'This won\'t delete the uploads associated with the album!',
+    title: 'Вы уверены?',
+    text: 'Это не приведет к удалению загрузок из альбома!',
     icon: 'warning',
     dangerMode: true,
     buttons: {
       cancel: true,
       confirm: {
-        text: 'Yes, disable it!',
+        text: 'Да, отключить!',
         closeModal: false
       },
       purge: {
-        text: 'Umm, delete the uploads, please?',
+        text: 'Хм, удалите загрузки, пожалуйста?',
         value: 'purge',
         className: 'swal-button--danger',
         closeModal: false
@@ -2194,16 +2194,16 @@ page.disableAlbum = id => {
           ? response.data.failed
           : []
 
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else if (failed.length) {
-          return swal('An error occurred!', `Unable to delete ${failed.length} of the album's upload${failed.length === 1 ? '' : 's'}.`, 'error')
+          return swal('Произошла ошибка!', `Невозможно удалить ${failed.length} загрузки альбома.`, 'error')
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
-      swal('Disabled!', 'The album has been disabled.', 'success', {
+      swal('Отключчено!', 'Альбом отключен.', 'success', {
         buttons: false,
         timer: 1500
       })
@@ -2220,19 +2220,19 @@ page.disableAlbum = id => {
 
 page.deleteAlbum = id => {
   swal({
-    title: 'Are you sure?',
-    text: 'You won\'t be able to recover this album!\n' +
-      'This also won\'t delete the uploads associated with the album!',
+    title: 'Вы уверены?',
+    text: 'Вы не сможете восстановить этот альбом!\n' +
+      'Это также не удалит загрузки, связанные с альбомом!',
     icon: 'warning',
     dangerMode: true,
     buttons: {
       cancel: true,
       confirm: {
-        text: 'Yes, delete it!',
+        text: 'Да, удалить!',
         closeModal: false
       },
       purge: {
-        text: 'Umm, delete the uploads, please?',
+        text: 'Хм, удалите загрузки, пожалуйста?',
         value: 'purge',
         className: 'swal-button--danger',
         closeModal: false
@@ -2250,16 +2250,16 @@ page.deleteAlbum = id => {
           ? response.data.failed
           : []
 
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else if (failed.length) {
-          return swal('An error occurred!', `Unable to delete ${failed.length} of the album's upload${failed.length === 1 ? '' : 's'}.`, 'error')
+          return swal('Произошла ошибка!', `Невозможно удалить ${failed.length} загрузок альбома.`, 'error')
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
-      swal('Disabled!', 'The album has been deleted.', 'success', {
+      swal('Удалено!', 'Альбом был удален.', 'success', {
         buttons: false,
         timer: 1500
       })
@@ -2285,14 +2285,14 @@ page.submitAlbum = element => {
 
     page.updateTrigger(element)
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
-    swal('Woohoo!', 'Album was created successfully.', 'success', {
+    swal('О, повезло, повезло!', 'Альбом успешно создан.', 'success', {
       buttons: false,
       timer: 1500
     })
@@ -2311,10 +2311,10 @@ page.getAlbumsSidebar = () => {
     if (!response) return
 
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
@@ -2374,10 +2374,10 @@ page.getAlbumsSidebar = () => {
 page.changeToken = (params = {}) => {
   page.dom.innerHTML = `
     <div class="field">
-      <label class="label">Your current token:</label>
+      <label class="label">Ваш текущий токен:</label>
       <div class="field">
         <div class="control">
-          <input id="token" readonly class="input" type="text" placeholder="Your token" value="${page.token}">
+          <input id="token" readonly class="input" type="text" placeholder="Ваш токен" value="${page.token}">
         </div>
       </div>
     </div>
@@ -2387,7 +2387,7 @@ page.changeToken = (params = {}) => {
           <span class="icon">
             <i class="icon-arrows-cw"></i>
           </span>
-          <span>Request new token</span>
+          <span>Запросить новый токен</span>
         </a>
       </div>
     </div>
@@ -2403,18 +2403,18 @@ page.changeToken = (params = {}) => {
     page.updateTrigger(trigger, 'loading')
     axios.post('api/tokens/change').then(response => {
       if (response.data.success === false) {
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else {
           page.updateTrigger(trigger)
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
       page.updateTrigger(trigger)
       swal({
-        title: 'Woohoo!',
-        text: 'Your token was successfully changed.',
+        title: 'О, повезло, повезло!',
+        text: 'Ваш токен был успешно изменен.',
         icon: 'success',
         buttons: false,
         timer: 1500
@@ -2435,13 +2435,13 @@ page.changePassword = (params = {}) => {
   page.dom.innerHTML = `
     <form class="prevent-default">
       <div class="field">
-        <label class="label">New password:</label>
+        <label class="label">Новый пароль:</label>
         <div class="control">
           <input id="password" class="input" type="password" minlength="6" maxlength="64">
         </div>
       </div>
       <div class="field">
-        <label class="label">Re-type new password:</label>
+        <label class="label">Введите повторно новый пароль:</label>
         <div class="control">
           <input id="passwordConfirm" class="input" type="password" minlength="6" maxlength="64">
         </div>
@@ -2452,7 +2452,7 @@ page.changePassword = (params = {}) => {
             <span class="icon">
               <i class="icon-paper-plane"></i>
             </span>
-            <span>Set new password</span>
+            <span>Установить новый пароль</span>
           </button>
         </div>
       </div>
@@ -2471,8 +2471,8 @@ page.changePassword = (params = {}) => {
       page.sendNewPassword(document.querySelector('#password').value, event.currentTarget)
     } else {
       swal({
-        title: 'Password mismatch!',
-        text: 'Your passwords do not match, please try again.',
+        title: 'Пароли не совпадают!',
+        text: 'Ваши пароли не совпадают, попробуйте еще раз.',
         icon: 'error'
       })
     }
@@ -2484,18 +2484,18 @@ page.sendNewPassword = (pass, element) => {
 
   axios.post('api/password/change', { password: pass }).then(response => {
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
         page.updateTrigger(element)
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
     page.updateTrigger(element)
     swal({
-      title: 'Woohoo!',
-      text: 'Your password was successfully changed.',
+      title: 'О, повезло, повезло!',
+      text: 'Ваш пароль был успешно изменен.',
       icon: 'success',
       buttons: false,
       timer: 1500
@@ -2509,7 +2509,7 @@ page.sendNewPassword = (pass, element) => {
 }
 
 page.getUsers = (params = {}) => {
-  if (!page.permissions.admin) return swal('An error occurred!', 'You cannot do this!', 'error')
+  if (!page.permissions.admin) return swal('Произошла ошибка!', 'Вы не можете это сделать!', 'error')
 
   if (page.isSomethingLoading) return page.warnSomethingLoading()
 
@@ -2520,11 +2520,11 @@ page.getUsers = (params = {}) => {
   const url = `api/users/${params.pageNum}`
   axios.get(url).then(response => {
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
         page.updateTrigger(params.trigger)
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
@@ -2537,7 +2537,7 @@ page.getUsers = (params = {}) => {
         params.pageNum = pages - 1
         return page.getUsers(params)
       } else {
-        return swal('An error occurred!', `There are no more users to populate page ${params.pageNum + 1}.`, 'error')
+        return swal('Произошла ошибка!', `Больше нет пользователей для заполнения страницы ${params.pageNum + 1}.`, 'error')
       }
     }
 
@@ -2554,17 +2554,17 @@ page.getUsers = (params = {}) => {
         <form class="prevent-default">
           <div class="field has-addons">
             <div class="control is-expanded">
-              <input id="filters" class="input is-small" type="text" placeholder="Filter users (WIP)" value="${page.escape(params.filters || '')}" disabled>
+              <input id="filters" class="input is-small" type="text" placeholder="Фильтр пользователей (WIP)" value="${page.escape(params.filters || '')}" disabled>
             </div>
             <div class="control">
-              <button type="button" class="button is-small is-primary is-outlined" title="Help? (WIP)" data-action="user-filters-help" disabled>
+              <button type="button" class="button is-small is-primary is-outlined" title="Помощь (WIP)" data-action="user-filters-help" disabled>
                 <span class="icon">
                   <i class="icon-help-circled"></i>
                 </span>
               </button>
             </div>
             <div class="control">
-              <button type="submit" class="button is-small is-info is-outlined" title="Filter users (WIP)" data-action="filter-users" disabled>
+              <button type="submit" class="button is-small is-info is-outlined" title="Фильтр пользователей (WIP)" data-action="filter-users" disabled>
                 <span class="icon">
                   <i class="icon-filter"></i>
                 </span>
@@ -2584,7 +2584,7 @@ page.getUsers = (params = {}) => {
                 <input id="jumpToPage" class="input is-small" type="number" min="1" max="${pages}" value="${params.pageNum + 1}"${pages === 1 ? ' disabled' : ''}>
               </div>
               <div class="control">
-                <button type="submit" class="button is-small is-info is-outlined" title="Jump to page" data-action="jump-to-page">
+                <button type="submit" class="button is-small is-info is-outlined" title="Перейти на страницу" data-action="jump-to-page">
                   <span class="icon">
                     <i class="icon-paper-plane"></i>
                   </span>
@@ -2599,11 +2599,11 @@ page.getUsers = (params = {}) => {
     const controls = `
       <div class="columns">
         <div class="column exclusive-operations has-text-left">
-          <a class="button is-small is-primary is-outlined" title="Create new user" data-action="create-user">
+          <a class="button is-small is-primary is-outlined" title="Создать пользователя" data-action="create-user">
             <span class="icon">
               <i class="icon-plus"></i>
             </span>
-            <span>Create new user</span>
+            <span>Создать пользователя</span>
           </a>
         </div>
         <div class="column bulk-operations has-text-right">
@@ -2612,16 +2612,16 @@ page.getUsers = (params = {}) => {
               <i class="icon-cancel"></i>
             </span>
           </a>
-          <a class="button is-small is-dangerish is-outlined" title="Bulk disable (WIP)" data-action="bulk-disable-users" disabled>
+          <a class="button is-small is-dangerish is-outlined" title="Массовое отключение (WIP)" data-action="bulk-disable-users" disabled>
             <span class="icon">
               <i class="icon-hammer"></i>
             </span>
           </a>
-          <a class="button is-small is-danger is-outlined" title="Bulk delete (WIP)" data-action="bulk-delete-users" disabled>
+          <a class="button is-small is-danger is-outlined" title="Массовое удалление (WIP)" data-action="bulk-delete-users" disabled>
             <span class="icon">
               <i class="icon-trash"></i>
             </span>
-            <span>Bulk delete</span>
+            <span>Массовое удалление</span>
           </a>
         </div>
       </div>
@@ -2649,14 +2649,14 @@ page.getUsers = (params = {}) => {
         <table class="table is-narrow is-fullwidth is-hoverable">
           <thead>
             <tr>
-              <th><input id="selectAll" class="checkbox" type="checkbox" title="Select all" data-action="select-all"></th>
-              <th title="Key: username">Username</th>
-              <th>Uploads</th>
-              <th>Usage</th>
-              <th title="Key: permission">Group</th>
-              <th title="Key: registration">Registration date</th>
-              <th title="Key: timestamp">Last token update</th>
-              <th class="has-text-right">(${response.data.count} total)</th>
+              <th><input id="selectAll" class="checkbox" type="checkbox" title="Выбрать все" data-action="select-all"></th>
+              <th title="Key: username">Имя пользователя</th>
+              <th>Загрузки</th>
+              <th>Использование</th>
+              <th title="Key: permission">Группа</th>
+              <th title="Key: registration">Дата регистрации</th>
+              <th title="Key: timestamp">Обновление токена</th>
+              <th class="has-text-right">(${response.data.count} суммарно)</th>
             </tr>
           </thead>
           <tbody id="table">
@@ -2703,7 +2703,7 @@ page.getUsers = (params = {}) => {
       const tr = document.createElement('tr')
       tr.dataset.id = user.id
       tr.innerHTML = `
-        <td class="controls"><input type="checkbox" class="checkbox" title="Select" data-index="${i}" data-action="select"${selected ? ' checked' : ''}></td>
+        <td class="controls"><input type="checkbox" class="checkbox" title="Выбрать" data-index="${i}" data-action="select"${selected ? ' checked' : ''}></td>
         <th${enabled ? '' : ' class="has-text-grey"'}>${user.username}</td>
         <th>${user.uploads}</th>
         <td>${page.getPrettyBytes(user.usage)}</td>
@@ -2815,10 +2815,10 @@ page.createUser = () => {
       if (!response) return
 
       if (response.data.success === false) {
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
@@ -2926,10 +2926,10 @@ page.editUser = id => {
       if (!response) return
 
       if (response.data.success === false) {
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
@@ -3000,10 +3000,10 @@ page.disableUser = id => {
       if (!response) return
 
       if (response.data.success === false) {
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
@@ -3058,12 +3058,12 @@ page.deleteUser = id => {
           ? response.data.failed
           : []
 
-        if (response.data.description === 'No token provided') {
+        if (response.data.description === 'Токен не предоставлен') {
           return page.verifyToken(page.token)
         } else if (failed.length) {
-          return swal('An error occurred!', `Unable to delete ${failed.length} of the user's upload${failed.length === 1 ? '' : 's'}.`, 'error')
+          return swal('Произошла ошибка!', `Unable to delete ${failed.length} of the user's upload${failed.length === 1 ? '' : 's'}.`, 'error')
         } else {
-          return swal('An error occurred!', response.data.description, 'error')
+          return swal('Произошла ошибка!', response.data.description, 'error')
         }
       }
 
@@ -3140,7 +3140,7 @@ page.buildStatisticTable = (title, stats) => {
   if (!stats) {
     rows += `
       <tr>
-        <td>Still being generated, please try again later\u2026</td>
+        <td>Все еще создается, повторите попытку позже\u2026</td>
         <td></td>
       </tr>
     `
@@ -3267,7 +3267,7 @@ page.buildStatisticTable = (title, stats) => {
     } catch (error) {
       rows = `
         <tr>
-          <td>Error parsing response. Try again?</td>
+          <td>Ошибка анализа ответа. Попробуйте еще раз</td>
           <td></td>
         </tr>
       `
@@ -3293,7 +3293,7 @@ page.buildStatisticTable = (title, stats) => {
 }
 
 page.getStatistics = (params = {}) => {
-  if (!page.permissions.admin) return swal('An error occurred!', 'You cannot do this!', 'error')
+  if (!page.permissions.admin) return swal('Произошла ошибка!', 'Вы не можете это сделать!', 'error')
 
   if (page.isSomethingLoading) return page.warnSomethingLoading()
 
@@ -3302,11 +3302,11 @@ page.getStatistics = (params = {}) => {
   const url = 'api/stats'
   axios.get(url).then(response => {
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
         page.updateTrigger(params.trigger)
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
@@ -3321,7 +3321,7 @@ page.getStatistics = (params = {}) => {
       content += `
         <article id="stats-hrtime" class="message is-size-7">
           <div class="message-body has-text-left">
-            Time taken: ${response.data.hrtime[0]}s ${Math.ceil(response.data.hrtime[1] / 1000000)}ms.
+            Затраченное время: ${response.data.hrtime[0]}s ${Math.ceil(response.data.hrtime[1] / 1000000)}ms.
           </div>
         </article>
       `
@@ -3338,22 +3338,22 @@ page.getStatistics = (params = {}) => {
 }
 
 page.getStatisticsCategory = (params = {}) => {
-  if (!page.permissions.admin) return swal('An error occurred!', 'You cannot do this!', 'error')
+  if (!page.permissions.admin) return swal('Произошла ошибка!', 'Вы не можете это сделать!', 'error')
 
   if (page.isSomethingLoading) return page.warnSomethingLoading()
 
-  if (!params.key) return swal('An error occurred!', 'Missing stats category key!', 'error')
+  if (!params.key) return swal('Произошла ошибка!', 'Отсутствует ключ категории статистики!', 'error')
 
   page.updateTrigger(params.trigger, 'loading')
 
   const url = `api/stats/${params.key}`
   axios.get(url).then(response => {
     if (response.data.success === false) {
-      if (response.data.description === 'No token provided') {
+      if (response.data.description === 'Токен не предоставлен') {
         return page.verifyToken(page.token)
       } else {
         page.updateTrigger(params.trigger)
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
     }
 
@@ -3361,7 +3361,7 @@ page.getStatisticsCategory = (params = {}) => {
       return stats && stats.meta && stats.meta.key === params.key
     })
     if (!title) {
-      return swal('An error occurred!', 'Server did not return required stats data.', 'error')
+      return swal('Произошла ошибка!', 'Сервер не вернул необходимые статистические данные.', 'error')
     }
 
     const statsTable = document.querySelector(`#stats-${params.key}`)
@@ -3446,7 +3446,7 @@ window.addEventListener('DOMContentLoaded', () => {
   page.clipboardJS = new ClipboardJS('.clipboard-js')
 
   page.clipboardJS.on('success', () => {
-    return swal('', 'The link has been copied to clipboard.', 'success', {
+    return swal('', 'Ссылка скопирована в буфер обмена.', 'success', {
       buttons: false,
       timer: 1500
     })

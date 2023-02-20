@@ -40,10 +40,10 @@ page.onError = error => {
   const content = document.createElement('div')
   content.innerHTML = `
     <p><code>${error.toString()}</code></p>
-    <p>Please check your console for more information.</p>
+    <p>Пожалуйста, проверьте консоль для информации.</p>
   `
   return swal({
-    title: 'An error occurred!',
+    title: 'Произошла ошибка!',
     icon: 'error',
     content
   })
@@ -90,7 +90,7 @@ page.reloadVideo = () => {
     const isaudio = type.startsWith('audio/')
     if (!isvideo && !isaudio) {
       page.toggleReloadBtn(true)
-      return swal('An error occurred!', 'The requested upload does not appear to be a media file.', 'error')
+      return swal('Произошла ошибка!', 'Запрошенная загрузка не является медиафайлом.', 'error')
     }
 
     page.urlIdentifier = page.urlInput.value
@@ -177,7 +177,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let urlPrefix = window.location.protocol + '//' + window.location.host
   const match = window.location.pathname.match(/.*\/(.*)$/)
   if (!match || !match[1]) {
-    return swal('An error occurred!', 'Failed to parse upload identifier from URL.', 'error')
+    return swal('Произошла ошибка', 'Не удалось проанализировать идентификатор загрузки из URL.', 'error')
   }
 
   page.urlIdentifier = match[1]

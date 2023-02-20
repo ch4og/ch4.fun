@@ -47,9 +47,9 @@ page.updateMessageBody = content => {
 page.onError = error => {
   console.error(error)
   page.updateMessageBody(`
-    <p><strong>An error occurred!</strong></p>
+    <p><strong>Произошла ошибка!</strong></p>
     <p><code>${error.toString()}</code></p>
-    <p>Please check your console for more information.</p>
+    <p>Пожалуйста, проверьте консоль для информации</p>
   `)
 }
 
@@ -74,17 +74,17 @@ page.deleteFile = () => {
   if (!page.file) return
 
   const content = document.createElement('div')
-  content.innerHTML = '<p>You won\'t be able to recover this file!</p>'
+  content.innerHTML = '<p>Вы не сможете восстановить этот файл!</p>'
 
   swal({
-    title: 'Are you sure?',
+    title: 'Вы уверены?',
     content,
     icon: 'warning',
     dangerMode: true,
     buttons: {
       cancel: true,
       confirm: {
-        text: 'Yes, nuke it!',
+        text: 'Да, сожги это!',
         closeModal: false
       }
     }
@@ -97,14 +97,14 @@ page.deleteFile = () => {
       if (!response) return
 
       if (response.data.success === false) {
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
 
       const failed = Array.isArray(response.data.failed) ? response.data.failed : []
       if (failed.length) {
-        swal('An error occurred!', 'Unable to delete this file.', 'error')
+        swal('Произошла ошибка!', 'Не удалось удалить этот файл.', 'error')
       } else {
-        swal('Deleted!', 'This file has been deleted.', 'success', {
+        swal('Удалено!', 'Файл удален.', 'success', {
           buttons: false
         })
       }
@@ -222,7 +222,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let urlPrefix = window.location.protocol + '//' + window.location.host
   const match = window.location.pathname.match(/.*\/(.*)$/)
   if (!match || !match[1]) {
-    return page.updateMessageBody('<p>Failed to parse upload identifier from URL.</p>')
+    return page.updateMessageBody('<p>Не удалось проанализировать идентификатор загрузки из URL.</p>')
   }
 
   page.urlIdentifier = match[1]
@@ -235,7 +235,7 @@ window.addEventListener('DOMContentLoaded', () => {
   page.clipboardJS = new ClipboardJS('.clipboard-js')
 
   page.clipboardJS.on('success', () => {
-    return swal('', 'The link has been copied to clipboard.', 'success', {
+    return swal('', 'Ссылка скопирована в буфер обмена.', 'success', {
       buttons: false,
       timer: 1500
     })

@@ -44,10 +44,10 @@ page.onError = error => {
   const content = document.createElement('div')
   content.innerHTML = `
     <p><code>${error.toString()}</code></p>
-    <p>Please check your console for more information.</p>
+    <p>Пожалуйста, проверьте консоль для информации.</p>
   `
   return swal({
-    title: 'An error occurred!',
+    title: 'Произошла ошибка!',
     icon: 'error',
     content
   })
@@ -62,17 +62,17 @@ page.onAxiosError = error => {
   const statusText = page.cloudflareErrors[error.response.status] || error.response.statusText
   const description = error.response.data && error.response.data.description
     ? error.response.data.description
-    : 'There was an error with the request.\nPlease check the console for more information.'
+    : 'Произошла ошибка с запросом.\nПожалуйста, проверьте консоль для информации.'
 
   return swal(`${error.response.status} ${statusText}`, description, 'error')
 }
 
 page.do = (dest, trigger) => {
   const user = page.user.value.trim()
-  if (!user) return swal('An error occurred!', 'You need to specify a username.', 'error')
+  if (!user) return swal('Произошла ошибка!', 'Вам нужно указать имя пользователя.', 'error')
 
   const pass = page.pass.value.trim()
-  if (!pass) return swal('An error occurred!', 'You need to specify a password.', 'error')
+  if (!pass) return swal('Произошла ошибка!', 'Вам нужно указать пароль.', 'error')
 
   trigger.classList.add('is-loading')
   axios.post(`api/${dest}`, {
@@ -81,7 +81,7 @@ page.do = (dest, trigger) => {
   }).then(response => {
     if (response.data.success === false) {
       trigger.classList.remove('is-loading')
-      return swal(`Unable to ${dest}!`, response.data.description, 'error')
+      return swal(`Невозможно ${dest}!`, response.data.description, 'error')
     }
 
     localStorage.token = response.data.token
@@ -98,7 +98,7 @@ page.verify = () => {
   }).then(response => {
     if (response.data.success === false) {
       page.unhide()
-      return swal('An error occurred!', response.data.description, 'error')
+      return swal('Произошла ошибка!', response.data.description, 'error')
     }
 
     // Redirect to dashboard if token is valid
