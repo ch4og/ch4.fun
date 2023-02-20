@@ -741,13 +741,13 @@ page.createAlbum = () => {
   div.innerHTML = `
     <div class="field">
       <div class="controls">
-        <input id="swalName" class="input" type="text" placeholder="Name" maxlength="${page.albumTitleMaxLength}">
+        <input id="swalName" class="input" type="text" placeholder="Имя" maxlength="${page.albumTitleMaxLength}">
       </div>
       <p class="help">Максимальная длина - ${page.albumTitleMaxLength} символов.</p>
     </div>
     <div class="field">
       <div class="control">
-        <textarea id="swalDescription" class="textarea" placeholder="Description" rows="2" maxlength="${page.albumDescMaxLength}"></textarea>
+        <textarea id="swalDescription" class="textarea" placeholder="Описание" rows="2" maxlength="${page.albumDescMaxLength}"></textarea>
       </div>
       <p class="help">Максимальная длина - ${page.albumDescMaxLength} символов.</p>
     </div>
