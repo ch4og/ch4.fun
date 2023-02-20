@@ -87,7 +87,7 @@ page.onInitError = error => {
 
   // Update upload button
   const uploadButton = document.querySelector('#loginToUpload')
-  uploadButton.innerText = 'An error occurred. Try to reload?'
+  uploadButton.innerText = 'Ошибка. Попробуйте снова.'
   uploadButton.classList.remove('is-loading')
   uploadButton.classList.remove('is-hidden')
 
@@ -107,10 +107,10 @@ page.onError = error => {
   const content = document.createElement('div')
   content.innerHTML = `
     <p><code>${error.toString()}</code></p>
-    <p>Please check your console for more information.</p>
+    <p>Проверьте консоль.</p>
   `
   return swal({
-    title: 'An error occurred!',
+    title: 'Произошла ошибка!',
     icon: 'error',
     content
   })
@@ -125,7 +125,7 @@ page.onAxiosError = error => {
   const statusText = page.cloudflareErrors[error.response.status] || error.response.statusText
   const description = error.response.data && error.response.data.description
     ? error.response.data.description
-    : 'There was an error with the request.\nPlease check the console for more information.'
+    : 'Произошла ошибка при обработке запроса.\nПроверьте консоль.'
 
   return swal(`${error.response.status} ${statusText}`, description, 'error')
 }
@@ -148,8 +148,8 @@ page.checkClientVersion = apiVersion => {
   const match = self.src.match(/\?_=(\d+)$/)
   if (match && match[1] && match[1] !== apiVersion) {
     return swal({
-      title: 'Update detected!',
-      text: 'Client assets have been updated. Reload to display the latest version?',
+      title: 'Найдено обновение!',
+      text: 'Ресурсы клиента обновлены. Перезагрузите, чтобы отобразить последнюю версию',
       icon: 'info',
       buttons: {
         confirm: {
@@ -207,9 +207,9 @@ page.preparePage = () => {
     button.href = 'auth'
     button.classList.remove('is-loading')
     if (page.enableUserAccounts) {
-      button.innerText = 'Anonymous upload is disabled.\nLog in or register to upload.'
+      button.innerText = 'Анонимная загрузка отключена.\nВойдите или зарегистрируйтесь, чтобы загрузить.'
     } else {
-      button.innerText = 'Running in private mode.\nLog in to upload.'
+      button.innerText = 'Работает в приватном режиме.\nВойдите, чтобы загрузить.'
     }
   } else {
     return page.prepareUpload()
@@ -262,7 +262,7 @@ page.prepareUpload = () => {
     // Fetch albums
     page.fetchAlbums()
   } else if (page.enableUserAccounts) {
-    document.querySelector('#loginLinkText').innerHTML = 'Create an account and keep track of your uploads'
+    document.querySelector('#loginLinkText').innerHTML = 'Создайте аккаунт для загрузки'
   }
 
   // Prepare & generate config tab
@@ -329,7 +329,7 @@ page.setActiveTab = index => {
 page.fetchAlbums = () => {
   return axios.get('api/albums', { headers: { simple: '1' } }).then(response => {
     if (response.data.success === false) {
-      return swal('An error occurred!', response.data.description, 'error')
+      return swal('Произошла ошибка!', response.data.description, 'error')
     }
 
     // Create an option for each album
@@ -360,7 +360,7 @@ page.prepareDropzone = () => {
       <span class="icon">
         <i class="icon-upload-cloud"></i>
       </span>
-      <span>Click here or drag & drop files</span>
+      <span>Нажмите здесь или перетащите файлы</span>
     </div>
   `
   tabDiv.querySelector('.dz-container').appendChild(div)
@@ -395,7 +395,7 @@ page.prepareDropzone = () => {
         tabDiv.querySelector('.uploads').classList.remove('is-hidden')
 
         file.previewElement.querySelector('.name').innerHTML = file.name
-        file.previewElement.querySelector('.descriptive-progress').innerHTML = 'Waiting in queue\u2026'
+        file.previewElement.querySelector('.descriptive-progress').innerHTML = 'Ожидание в очереди\u2026'
       })
 
       this.on('sending', (file, xhr) => {
@@ -404,7 +404,7 @@ page.prepareDropzone = () => {
           xhr.ontimeout = () => {
             const instances = page.dropzone.getUploadingFiles()
               .filter(instance => instance.xhr === xhr)
-            page.dropzone._handleUploadError(instances, xhr, 'Connection timed out. Try to reduce upload chunk size.')
+            page.dropzone._handleUploadError(instances, xhr, 'Время соединения истекло. Попробуйте уменьшить размер чанков.')
           }
         }
 
@@ -425,9 +425,9 @@ page.prepareDropzone = () => {
         }
 
         if (!file.upload.chunked) {
-          file.previewElement.querySelector('.descriptive-progress').innerHTML = 'Uploading\u2026'
+          file.previewElement.querySelector('.descriptive-progress').innerHTML = 'Загрузка\u2026'
         } else if (file.upload.chunks.length === 1) {
-          file.previewElement.querySelector('.descriptive-progress').innerHTML = `Uploading chunk 1/${file.upload.totalChunkCount}\u2026`
+          file.previewElement.querySelector('.descriptive-progress').innerHTML = `Загрузка чанка 1/${file.upload.totalChunkCount}\u2026`
         }
       })
 
@@ -442,7 +442,7 @@ page.prepareDropzone = () => {
           : file.upload
         const xhr = upl.xhr || file.xhr
 
-        let prefix = 'Uploading\u2026'
+        let prefix = 'Загрузка\u2026'
         let skipProgress = false
         if (file.upload.chunked) {
           const done = upl.bytesSent === upl.total
@@ -452,7 +452,7 @@ page.prepareDropzone = () => {
             chunkIndex++
             skipProgress = true
           }
-          prefix = `Uploading chunk ${chunkIndex}/${file.upload.totalChunkCount}\u2026`
+          prefix = `Загрузка чанка ${chunkIndex}/${file.upload.totalChunkCount}\u2026`
         }
 
         // Real-time upload speed calculation
@@ -537,7 +537,7 @@ page.prepareDropzone = () => {
 
         // Clean up file size errors
         if (/^File is too big/.test(err) || /File too large/.test(err)) {
-          err = `File too large (${page.getPrettyBytes(file.size)}).`
+          err = `Файл слишком большой (${page.getPrettyBytes(file.size)}).`
         }
 
         file.previewElement.querySelector('.descriptive-progress').classList.add('is-hidden')
@@ -598,7 +598,7 @@ page.addUrlsToQueue = () => {
     })
 
   if (!urls.length) {
-    return swal('An error occurred!', 'You have not entered any URLs.', 'error')
+    return swal('Произошла ошибка!', 'Вы не ввели ни одного URL.', 'error')
   }
 
   const tabDiv = document.querySelector('#tab-urls')
@@ -610,7 +610,7 @@ page.addUrlsToQueue = () => {
 
     const previewElement = previewTemplate.content.firstChild
     previewElement.querySelector('.name').innerHTML = urls[i]
-    previewElement.querySelector('.descriptive-progress').innerHTML = 'Waiting in queue\u2026'
+    previewElement.querySelector('.descriptive-progress').innerHTML = 'Ожидание в очереди\u2026'
 
     const previewsContainer = tabDiv.querySelector('.uploads')
     previewsContainer.appendChild(previewElement)
@@ -634,7 +634,7 @@ page.processUrlsQueue = () => {
     if (data.success === false) {
       const match = data.description.match(/ over limit: (\d+)$/)
       if (match && match[1]) {
-        data.description = `File exceeded limit of ${page.getPrettyBytes(match[1])}.`
+        data.description = `Файл превысил лимит ${page.getPrettyBytes(match[1])}.`
       }
 
       file.previewElement.querySelector('.error').innerHTML = data.description
@@ -653,7 +653,7 @@ page.processUrlsQueue = () => {
 
   function initUrlUpload (file) {
     file.previewElement.querySelector('.descriptive-progress').innerHTML =
-      'Waiting for server to fetch URL\u2026'
+      'Ожидание получения сервером URL\u2026'
 
     return axios.post('api/upload', {
       urls: [file.url]
@@ -731,7 +731,7 @@ page.updateTemplate = (file, response) => {
   if (response.expirydate) {
     const expiryDate = file.previewElement.querySelector('.expiry-date')
     expiryDate.dataset.timestamp = response.expirydate
-    expiryDate.innerHTML = `EXP: ${page.getPrettyDate(new Date(response.expirydate * 1000))}`
+    expiryDate.innerHTML = `До: ${page.getPrettyDate(new Date(response.expirydate * 1000))}`
     expiryDate.classList.remove('is-hidden')
   }
 }
@@ -743,19 +743,19 @@ page.createAlbum = () => {
       <div class="controls">
         <input id="swalName" class="input" type="text" placeholder="Name" maxlength="${page.albumTitleMaxLength}">
       </div>
-      <p class="help">Max length is ${page.albumTitleMaxLength} characters.</p>
+      <p class="help">Максимальная длина - ${page.albumTitleMaxLength} символов.</p>
     </div>
     <div class="field">
       <div class="control">
         <textarea id="swalDescription" class="textarea" placeholder="Description" rows="2" maxlength="${page.albumDescMaxLength}"></textarea>
       </div>
-      <p class="help">Max length is ${page.albumDescMaxLength} characters.</p>
+      <p class="help">Максимальная длина - ${page.albumDescMaxLength} символов.</p>
     </div>
     <div class="field">
       <div class="control">
         <label class="checkbox">
           <input id="swalDownload" type="checkbox" checked>
-          Enable download
+          Включить загрузку
         </label>
       </div>
     </div>
@@ -763,14 +763,14 @@ page.createAlbum = () => {
       <div class="control">
         <label class="checkbox">
           <input id="swalPublic" type="checkbox" checked>
-          Enable public link
+          Включить публичную ссылку
         </label>
       </div>
     </div>
   `
 
   swal({
-    title: 'Create new album',
+    title: 'Создать новый альбом',
     icon: 'info',
     content: div,
     buttons: {
@@ -790,7 +790,7 @@ page.createAlbum = () => {
       public: document.querySelector('#swalPublic').checked
     }).then(response => {
       if (response.data.success === false) {
-        return swal('An error occurred!', response.data.description, 'error')
+        return swal('Произошла ошибка!', response.data.description, 'error')
       }
 
       const option = document.createElement('option')
@@ -800,7 +800,7 @@ page.createAlbum = () => {
       option.selected = true
       page.albumSelectOnChange()
 
-      swal('Woohoo!', 'Album was created successfully.', 'success')
+      swal('О, повезло, повезло!', 'Альбом успешно создан.', 'success')
     }).catch(page.onError)
   })
 }
@@ -823,26 +823,26 @@ page.prepareUploadConfig = () => {
 
   const config = {
     siBytes: {
-      label: 'File size display',
+      label: 'Отображение размера файла',
       select: [
-        { value: 'default', text: '1000 B = 1 kB = 1 Kilobyte' },
-        { value: '0', text: '1024 B = 1 KiB = 1 Kibibyte' }
+        { value: 'default', text: '1000 Байт = 1 Килобайт' },
+        { value: '0', text: '1024 Байт = 1 Кибибайт' }
       ],
-      help: 'This will be used in our homepage, dashboard, and album public pages.',
+      help: 'Это будет использоваться на домашней странице, панели инструментов и страницах альбомов.',
       valueHandler () {} // Do nothing
     },
     ampmTime: {
-      label: 'Show AM/PM on date',
+      label: '12 Часовой формат времени',
       select: [
-        { value: 'default', text: 'No' },
-        { value: '1', text: 'Yes' }
+        { value: 'default', text: 'Нет' },
+        { value: '1', text: 'Да' }
       ],
-      help: 'This will be used in our homepage and dashboard.',
+      help: 'Это будет использоваться на домашней странице и панели инструментов.',
       valueHandler () {} // Do nothing
     },
     fileLength: {
       display: fileIdentifierLength,
-      label: 'File identifier length',
+      label: 'Длина идентификатора файла',
       number: fileIdentifierLength
         ? {
             min: page.fileIdentifierLength.min,
@@ -856,26 +856,26 @@ page.prepareUploadConfig = () => {
     },
     uploadAge: {
       display: temporaryUploadAges,
-      label: 'Upload age',
+      label: 'Срок жизни файла',
       select: [],
-      help: 'Whether to automatically delete your uploads after a certain amount of time.'
+      help: 'Через какое время автоматически удалять ваши загрузки.'
     },
     stripTags: {
       display: page.stripTagsConfig,
-      label: 'Strip tags',
+      label: 'Убирать теги',
       select: page.stripTagsConfig
         ? [
-            { value: page.stripTagsConfig.default ? 'default' : '1', text: 'Yes' },
-            { value: page.stripTagsConfig.default ? '0' : 'default', text: 'No' }
+            { value: page.stripTagsConfig.default ? 'default' : '1', text: 'Да' },
+            { value: page.stripTagsConfig.default ? '0' : 'default', text: 'Нет' }
           ]
         : null,
-      help: `Whether to strip tags (e.g. EXIF) from your uploads.<br>
-        This only applies to regular image${page.stripTagsConfig && page.stripTagsConfig.video ? ' and video' : ''} uploads (i.e. not URL uploads).`,
+      help: `Нужно ли удалять теги (например, EXIF) из ваших загрузок.<br>
+        Это относится только к изображениям${page.stripTagsConfig && page.stripTagsConfig.video ? ' и видео' : ''} загруженым напрямую.`,
       disabled: page.stripTagsConfig && page.stripTagsConfig.force
     },
     chunkSize: {
       display: Boolean(page.chunkSizeConfig.default),
-      label: 'Upload chunk size (MB)',
+      label: 'Размер чанка (MB)',
       number: {
         min: 1,
         max: page.chunkSizeConfig.max,
@@ -886,7 +886,7 @@ page.prepareUploadConfig = () => {
       help: true
     },
     parallelUploads: {
-      label: 'Parallel uploads',
+      label: 'Параллельные загрузки',
       number: {
         min: 1,
         max: 10,
@@ -896,13 +896,13 @@ page.prepareUploadConfig = () => {
       help: true
     },
     uploadsHistoryOrder: {
-      label: 'Uploads history order',
+      label: 'Порядок истории загрузки',
       select: [
-        { value: 'default', text: 'Older files on top' },
-        { value: '0', text: 'Newer files on top' }
+        { value: 'default', text: 'Старые файлы сверху' },
+        { value: '0', text: 'Новые файлы сверху' }
       ],
-      help: `"Newer files on top" will use a CSS technique, which unfortunately come with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#Accessibility_concerns" target="_blank" rel="noopener">some undesirable side effects</a>.<br>
-        This also affects text selection, such as when trying to select text from top to bottom will result in them being selected from bottom to top instead, and vice versa.`,
+      help: `"Новые файлы сверху" будет использовать метод, который, имеет <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#Accessibility_concerns" target="_blank" rel="noopener">некоторые проблемы</a>.<br>
+        Это также влияет на выделение текста, например, при попытке выделить текст сверху вниз вместо этого он будет выбираться снизу вверх, и наоборот.`,
       valueHandler (value) {
         if (value === '0') {
           const uploadFields = document.querySelectorAll('.tab-content > .uploads')
@@ -913,12 +913,12 @@ page.prepareUploadConfig = () => {
       }
     },
     previewImages: {
-      label: 'Load images for preview',
+      label: 'Предварительный просмотр',
       select: [
-        { value: 'default', text: 'Yes' },
-        { value: '0', text: 'No' }
+        { value: 'default', text: 'Да' },
+        { value: '0', text: 'Нет' }
       ],
-      help: 'By default, uploaded images will be loaded as their previews.',
+      help: 'По умолчанию будут загружаться превью.',
       valueHandler (value) {
         page.previewImages = value !== '0'
       }
@@ -1039,7 +1039,7 @@ page.prepareUploadConfig = () => {
       } else {
         control.disabled = conf.disabled
       }
-      help = 'This option is currently not configurable.'
+      help = 'Этот параметр в настоящее время не настраивается.'
     } else if (typeof conf.help === 'string') {
       help = conf.help
     } else if (conf.help === true && typeof conf.number !== 'undefined') {
@@ -1076,12 +1076,11 @@ page.prepareUploadConfig = () => {
         <span class="icon">
           <i class="icon-floppy"></i>
         </span>
-        <span>Save & reload</span>
+        <span>Сохранить и перезагрузить</span>
       </button>
     </p>
     <p class="help">
-      This configuration will only be used in this browser.<br>
-      After reloading the page, some of them will also be applied to the ShareX config that you can download by clicking on the ShareX icon below.
+      Эта конфигурация будет сохранена в браузере.
     </p>
   `
 
@@ -1111,8 +1110,8 @@ page.prepareUploadConfig = () => {
     }
 
     swal({
-      title: 'Woohoo!',
-      text: 'Configuration saved into this browser.',
+      title: 'О, повезло, повезло!',
+      text: 'Конфигурация сохранена в этом браузере.',
       icon: 'success'
     }).then(() => {
       window.location.reload()
@@ -1175,8 +1174,8 @@ window.addEventListener('DOMContentLoaded', () => {
       theme: 'classic',
       position: 'bottom-left',
       content: {
-        message: 'We use cookies to offer you a better browsing experience and to analyze our traffic. You consent to our cookies if you continue to use this website.',
-        dismiss: 'Got it!',
+        message: 'Мы используем cookie, чтобы улучшить сайт и анализировать трафик. Вы соглашаетесь с файлами cookie, если продолжаете использовать сайт.',
+        dismiss: 'Понятно!',
         link: 'Details in our Cookie Policy',
         href: 'cookiepolicy'
       }
@@ -1188,7 +1187,7 @@ window.addEventListener('DOMContentLoaded', () => {
   page.clipboardJS = new ClipboardJS('.clipboard-js')
 
   page.clipboardJS.on('success', () => {
-    return swal('', 'The link has been copied to clipboard.', 'success', {
+    return swal('', 'Ссылка скопирована в буфер обмена.', 'success', {
       buttons: false,
       timer: 1500
     })
