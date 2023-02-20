@@ -71,7 +71,7 @@
           </a>
           {%- elif album.downloadLink -%}
             {%- if usingCDN -%}
-            <a class="button is-primary is-outlined" title="Be aware that album archive may be cached by CDN" href="../{{ album.downloadLink }}">
+            <a class="button is-primary is-outlined" title="Имейте в виду, что архив альбома может кэшироваться." href="../{{ album.downloadLink }}">
               <span class="icon">
                 <i class="icon-download"></i>
               </span>
@@ -108,8 +108,8 @@
     {% if nojs -%}
     <article class="message">
       <div class="message-body">
-        <p>You are viewing No-JS version of this album, so file size will be displayed in bytes.</p>
-        <p>Please <a href="../{{ album.url }}">click here</a> if you want to view its regular version.</p>
+        <p>Вы просматриваете версию этого альбома No-JS, поэтому размер файла будет отображаться в байтах.</p>
+        <p><a href="../{{ album.url }}">Нажмите сюда</a> если вы хотите просмотреть обычную версию.</p>
       </div>
     </article>
     {%- endif %}
@@ -140,7 +140,7 @@
     {%- else -%}
     <article class="message">
       <div class="message-body">
-        There are no files in the album.
+        В альбоме нет файлов.
       </div>
     </article>
     {%- endif %}
@@ -150,7 +150,7 @@
 {% set floatingHomeHref = '..' %}
 {% include "_partial/floating-home.njk" %}
 {% if not nojs -%}
-{% set noscriptMessage = '<p>If you are not automatically redirected to its No-JS version, <a href="' + noJsUrl + '">click here</a>.</p>' %}
+{% set noscriptMessage = '<p>Если вы автоматически не перенаправлены на No-JS, <a href="' + noJsUrl + '">нажмите здесь</a>.</p>' %}
 {% include "_partial/noscript.njk" %}
 {%- endif %}
 {% endblock %}

@@ -3125,8 +3125,8 @@ page.paginate = (totalItems, itemsPerPage, currentPage) => {
 
   return `
     <nav class="pagination is-centered is-small">
-      <a class="button pagination-previous" data-action="page-prev"${currentPage === 1 ? ' disabled' : ''}>Previous</a>
-      <a class="button pagination-next" data-action="page-next"${currentPage >= numPages ? ' disabled' : ''}>Next page</a>
+      <a class="button pagination-previous" data-action="page-prev"${currentPage === 1 ? ' disabled' : ''}>Прошлая страница</a>
+      <a class="button pagination-next" data-action="page-next"${currentPage >= numPages ? ' disabled' : ''}>Следущая страница</a>
       <ul class="pagination-list">${template}</ul>
     </nav>
   `

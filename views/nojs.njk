@@ -23,7 +23,7 @@
       <h2 class="subtitle">{{ globals.home_subtitle | safe }}</h2>
 
       <p class="subtitle" id="maxSize">
-        Maximum total size per upload attempt is {{ noJsMaxSizeInt or maxSizeInt }} MB
+        Максимальный размер одной загрузки: {{ noJsMaxSizeInt or maxSizeInt }} MB
       </p>
 
       <div class="columns is-gapless">
@@ -45,7 +45,7 @@
                 <input type="submit" class="button is-danger is-outlined is-fullwidth" value="Upload">
               </p>
               <p class="help">
-                Files uploaded through this form will only be associated with your account if you specify your API token.
+                Файлы, загруженные через эту форму, будут связаны с вашей учетной записью.
               </p>
             </div>
           </form>
