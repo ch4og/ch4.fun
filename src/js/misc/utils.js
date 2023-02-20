@@ -11,7 +11,7 @@ page.prepareShareX = () => {
   const headers = {}
 
   if (page.token) {
-    headers.token = page.token || ''
+    headers.token = page.token || '24 * 7'
     headers.albumid = page.album || ''
   }
 
