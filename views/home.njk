@@ -183,13 +183,14 @@
       
 {% include "_partial/links.njk" %}
       
-	      <p><small>ch4og</small></p>
+	      
 {% if utils.gitHash -%}
       <div class="git-commit columns is-gapless">
         <div class="column is-hidden-mobile"></div>
         <div class="column">
           <span>Git commit: </span><a href="https://github.com/BobbyWibowo/lolisafe/commit/{{ utils.gitHash }}" target="_blank" rel="noopener">{{ utils.gitHash }}</a>
         </div>
+        <p><small>ch4og</small></p>
         <div class="column is-hidden-mobile"></div>
       </div>
       {%- endif %}
