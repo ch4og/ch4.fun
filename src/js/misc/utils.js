@@ -16,7 +16,7 @@ page.prepareShareX = () => {
   }
 
   headers.filelength = page.fileLength || ''
-  headers.age = '24 * 7'
+  headers.age = '168'
   headers.striptags = page.stripTags || ''
 
   const origin = (window.location.host + window.location.pathname).replace(/\/(dashboard)?$/, '')
