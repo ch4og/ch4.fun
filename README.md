@@ -3,7 +3,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ch4og/lolisafe/master/LICENSE)
 
-This fork is for my personal use and **could** have problems if you try using it. Please refer to the [original repo](https://github.com/BobbyWibowo/lolisafe)
+This fork is for my personal use and may and probably WILL have some problems if you try to use it. Please refer to [original repo](https://github.com/BobbyWibowo/lolisafe)
 
 ## Features
 
